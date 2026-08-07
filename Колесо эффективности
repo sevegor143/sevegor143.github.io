@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Колесо эффективности — реинжениринг бизнес-процессов</title>
+  <meta name="description" content="Реинжениринг бизнес-процессов, аудит персонала, пересмотр мотивации и внедрение инструментов учёта.">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --text-primary: #1a1a1a;
+      --text-secondary: #555;
+      --text-tertiary: #888;
+      --text-quaternary: #bbb;
+      --surface: #fff;
+      --surface-muted: #f5f5f5;
+      --surface-raised: #fafafa;
+      --border: #e5e5e5;
+      --accent: #1a1a1a;
+      --positive: #2d7a46;
+      --danger: #c0392b;
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --t-fast: 0.15s;
+      --t-normal: 0.25s;
+      --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --text-primary: #f0f0f0;
+        --text-secondary: #aaa;
+        --text-tertiary: #777;
+        --text-quaternary: #555;
+        --surface: #111;
+        --surface-muted: #1a1a1a;
+        --surface-raised: #1e1e1e;
+        --border: #333;
+      }
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-sans); color: var(--text-primary); background: var(--surface); line-height: 1.5; -webkit-font-smoothing: antialiased; }
+    .container { max-width: 800px; margin: 0 auto; padding: 0 20px; }
+    
+    /* Nav */
+    .site-nav { display: flex; gap: 4px; padding: 16px 0; position: sticky; top: 0; background: color-mix(in srgb, var(--surface) 94%, transparent); backdrop-filter: blur(10px); z-index: 50; border-bottom: 1px solid var(--border); overflow-x: auto; }
+    .site-nav a { text-decoration: none; color: var(--text-secondary); font-size: 14px; padding: 8px 14px; border-radius: 8px; transition: all var(--t-fast) var(--ease-out); cursor: pointer; white-space: nowrap; flex-shrink: 0; }
+    .site-nav a:hover, .site-nav a.active { color: var(--text-primary); background: var(--surface-muted); }
+    
+    /* Sections */
+    section { padding: 56px 0; scroll-margin-top: 72px; }
+    .hero { padding: 72px 0 48px; }
+    .hero h1 { font-size: 44px; font-weight: 500; line-height: 1.05; margin: 0 0 16px; letter-spacing: -0.01em; }
+    .hero p { font-size: 17px; color: var(--text-secondary); line-height: 1.6; margin: 0 0 28px; max-width: 520px; }
+    .hero-cta { display: inline-flex; gap: 12px; flex-wrap: wrap; }
+    .btn { padding: 12px 24px; border-radius: 10px; border: none; font-size: 14px; cursor: pointer; transition: all var(--t-fast) var(--ease-out); font-family: var(--font-sans); font-weight: 500; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; }
+    .btn-primary { background: var(--text-primary); color: var(--surface); }
+    .btn-primary:hover { opacity: 0.82; }
+    .btn-secondary { background: transparent; color: var(--text-primary); border: 1px solid var(--border); }
+    .btn-secondary:hover { background: var(--surface-muted); }
+    
+    .section-label { font-size: 11px; color: var(--text-quaternary); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; font-weight: 500; }
+    h2 { font-size: 28px; font-weight: 500; margin: 0 0 20px; line-height: 1.15; letter-spacing: -0.01em; }
+    .lead { font-size: 16px; color: var(--text-secondary); line-height: 1.6; margin: 0 0 28px; max-width: 560px; }
+    
+    /* About */
+    .about-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 8px; }
+    .about-card { padding: 24px; border-radius: 12px; background: var(--surface-muted); }
+    .about-card .num { font-size: 36px; font-weight: 500; color: var(--text-primary); font-variant-numeric: tabular-nums; line-height: 1; }
+    .about-card .label { font-size: 13px; color: var(--text-secondary); margin-top: 8px; line-height: 1.4; }
+    
+    /* Packages */
+    .packages { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 8px; }
+    .package { padding: 24px; border-radius: 12px; border: 1px solid var(--border); cursor: pointer; transition: all var(--t-fast) var(--ease-out); position: relative; background: var(--surface); }
+    .package:hover { border-color: var(--text-primary); transform: translateY(-2px); }
+    .package.selected { border-color: var(--text-primary); background: var(--surface-muted); }
+    .package.selected::after { content: '✓'; position: absolute; top: 16px; right: 16px; width: 22px; height: 22px; border-radius: 50%; background: var(--text-primary); color: var(--surface); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; }
+    .package-name { font-size: 17px; font-weight: 500; margin: 0 0 6px; }
+    .package-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.5; margin: 0 0 14px; }
+    .package-price { font-size: 24px; font-weight: 500; font-variant-numeric: tabular-nums; }
+    .package-note { font-size: 12px; color: var(--text-tertiary); margin-top: 4px; }
+    .package ul { margin: 14px 0 0; padding-left: 18px; }
+    .package ul li { font-size: 13px; color: var(--text-secondary); margin-bottom: 7px; line-height: 1.45; }
+    .package ul li::marker { color: var(--text-quaternary); }
+    
+    .partners { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 8px; }
+    .partner { padding: 16px 20px; border-radius: 10px; border: 1px solid var(--border); font-size: 14px; color: var(--text-secondary); transition: all var(--t-fast) var(--ease-out); background: var(--surface); }
+    .partner:hover { border-color: var(--text-primary); color: var(--text-primary); }
+    
+    /* Cases */
+    .cases { display: flex; flex-direction: column; gap: 12px; margin-top: 8px; }
+    .case { padding: 20px 24px; border-radius: 12px; border: 1px solid var(--border); cursor: pointer; transition: all var(--t-fast) var(--ease-out); background: var(--surface); }
+    .case:hover { border-color: var(--text-primary); }
+    .case-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
+    .case-title { font-size: 15px; font-weight: 500; margin: 0 0 4px; line-height: 1.3; }
+    .case-meta { font-size: 12px; color: var(--text-tertiary); }
+    .case-tag { padding: 3px 10px; border-radius: 6px; font-size: 11px; background: var(--surface-muted); color: var(--text-secondary); white-space: nowrap; font-weight: 500; }
+    .case-body { max-height: 0; overflow: hidden; transition: max-height var(--t-normal) var(--ease-out); }
+    .case.open .case-body { max-height: 220px; margin-top: 14px; }
+    .case-body p { font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin: 0; }
+    .case-result { display: flex; gap: 24px; margin-top: 14px; flex-wrap: wrap; }
+    .case-result span { font-size: 13px; color: var(--text-secondary); }
+    .case-result strong { color: var(--text-primary); font-weight: 500; font-variant-numeric: tabular-nums; }
+    
+    /* Contact */
+    .contact-form { max-width: 480px; }
+    .form-group { margin-bottom: 16px; }
+    .form-group label { display: block; font-size: 13px; color: var(--text-secondary); margin-bottom: 6px; font-weight: 500; }
+    .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 11px 14px; border-radius: 10px; border: 1px solid var(--border); background: var(--surface); color: var(--text-primary); font-size: 14px; font-family: var(--font-sans); outline: none; transition: border-color var(--t-fast) var(--ease-out); box-sizing: border-box; }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--text-primary); }
+    .form-group textarea { resize: vertical; min-height: 100px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .submit-btn { width: 100%; padding: 13px; border-radius: 10px; border: none; background: var(--text-primary); color: var(--surface); font-size: 14px; font-weight: 500; cursor: pointer; transition: opacity var(--t-fast) var(--ease-out); }
+    .submit-btn:hover { opacity: 0.85; }
+    .submit-btn.sent { background: var(--positive); pointer-events: none; }
+    
+    /* Footer */
+    .footer { padding: 32px 0; border-top: 1px solid var(--border); margin-top: 24px; }
+    .footer p { font-size: 13px; color: var(--text-tertiary); margin: 0; }
+    
+    /* Toast */
+    .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px); background: var(--text-primary); color: var(--surface); padding: 12px 24px; border-radius: 10px; font-size: 13px; font-weight: 500; opacity: 0; transition: all var(--t-normal) var(--ease-out); pointer-events: none; z-index: 100; box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    
+    /* Responsive */
+    @media (max-width: 640px) {
+      .hero h1 { font-size: 32px; }
+      .about-grid, .packages { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .case-header { flex-direction: column; gap: 8px; }
+      .case-result { gap: 12px; }
+      section { padding: 40px 0; }
+      .hero { padding: 48px 0 32px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav class="site-nav">
+      <a href="#hero" class="active" onclick="scrollToSec(event,'hero')">Главная</a>
+      <a href="#about" onclick="scrollToSec(event,'about')">О нас</a>
+      <a href="#services" onclick="scrollToSec(event,'services')">Услуги</a>
+      <a href="#cases" onclick="scrollToSec(event,'cases')">Кейсы</a>
+      <a href="#contact" onclick="scrollToSec(event,'contact')">Контакты</a>
+    </nav>
+
+    <section class="hero" id="hero">
+      <h1>Колесо эффективности</h1>
+      <p>Реинжениринг бизнес-процессов, аудит персонала, пересмотр мотивации и внедрение новых инструментов учёта. Превращаем хаос в систему.</p>
+      <div class="hero-cta">
+        <a href="#services" class="btn btn-primary" onclick="scrollToSec(event,'services')">Выбрать пакет</a>
+        <a href="#cases" class="btn btn-secondary" onclick="scrollToSec(event,'cases')">Смотреть кейсы</a>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="section-label">О компании</div>
+      <h2>Мы делаем бизнес проще</h2>
+      <p class="lead">Помогаем компаниям найти узкие места, оптимизировать процессы и выстроить систему управления, которая работает без постоянного контроля.</p>
+      <div class="about-grid">
+        <div class="about-card">
+          <div class="num" data-target="147">0</div>
+          <div class="label">процессов оптимизировано</div>
+        </div>
+        <div class="about-card">
+          <div class="num" data-target="38">0</div>
+          <div class="label">компаний под нашим сопровождением</div>
+        </div>
+        <div class="about-card">
+          <div class="num" data-target="12">0</div>
+          <div class="label">лет в управленческом консалтинге</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="services">
+      <div class="section-label">Услуги</div>
+      <h2>Пакетные решения</h2>
+      <p class="lead">Чёткая стоимость, понятный результат, фиксированные сроки. Выберите подходящий уровень или начните со звонка.</p>
+      <div class="packages">
+        <div class="package" onclick="togglePkg(this)">
+          <div class="package-name">Старт</div>
+          <div class="package-desc">Быстрая диагностика и первые шаги к оптимизации</div>
+          <div class="package-price">40 000 ₽</div>
+          <ul>
+            <li>Анализ 1–2 ключевых процессов</li>
+            <li>Отчёт с выявлением узких мест</li>
+            <li>Рекомендации по оптимизации</li>
+          </ul>
+        </div>
+        <div class="package" onclick="togglePkg(this)">
+          <div class="package-name">Оптимизация</div>
+          <div class="package-desc">Полный цикл: от схемы до внедрения</div>
+          <div class="package-price">100 000 ₽</div>
+          <ul>
+            <li>Всё из пакета «Старт»</li>
+            <li>Разработка новой схемы процесса</li>
+            <li>Подбор инструментов автоматизации</li>
+            <li>Обучение 1–2 сотрудников</li>
+            <li>Поддержка первые 2 недели</li>
+          </ul>
+        </div>
+        <div class="package" onclick="togglePkg(this)">
+          <div class="package-name">Максимум</div>
+          <div class="package-desc">Комплексная трансформация управления</div>
+          <div class="package-price">от 350 000 ₽</div>
+          <ul>
+            <li>Аудит всех бизнес-процессов</li>
+            <li>Система управления проектами и задачами</li>
+            <li>Интеграция нескольких инструментов</li>
+            <li>Обучение команды</li>
+            <li>Сопровождение 1 месяц</li>
+          </ul>
+        </div>
+        <div class="package" onclick="togglePkg(this)">
+          <div class="package-name">Коучинг / сопровождение</div>
+          <div class="package-desc">Регулярная поддержка руководителя и команды</div>
+          <div class="package-price">от 60 000 ₽ / мес</div>
+          <div class="package-note">Минимум 3 месяца</div>
+          <ul>
+            <li>Встречи 1–2 раза в неделю</li>
+            <li>Постановка целей по оптимизации</li>
+            <li>Помощь в решении текущих проблем</li>
+            <li>Работа с командой</li>
+          </ul>
+        </div>
+      </div>
+
+      <div style="margin-top: 40px;">
+        <div class="section-label">Партнёры</div>
+        <h2 style="font-size: 20px; margin-bottom: 14px;">Расширяем возможности</h2>
+        <div class="partners">
+          <div class="partner">Юридический консалтинг — сопровождение документации, упрощение договоров</div>
+          <div class="partner">Подбор и обучение персонала</div>
+          <div class="partner">Логистические услуги и аутсорсинг</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="cases">
+      <div class="section-label">Кейсы</div>
+      <h2>Результаты клиентов</h2>
+      <div class="cases">
+        <div class="case" onclick="toggleCase(this)">
+          <div class="case-header">
+            <div>
+              <div class="case-title">Оптимизация отдела продаж для сети магазинов</div>
+              <div class="case-meta">Розничная торговля · 12 точек</div>
+            </div>
+            <span class="case-tag">Оптимизация</span>
+          </div>
+          <div class="case-body">
+            <p>Перестроили воронку продаж, внедрили CRM и единую систему отчётности. Убрали дублирование задач между менеджерами и складом.</p>
+            <div class="case-result">
+              <span><strong>−30%</strong> времени на обработку заказа</span>
+              <span><strong>+22%</strong> конверсия в продажу</span>
+            </div>
+          </div>
+        </div>
+        <div class="case" onclick="toggleCase(this)">
+          <div class="case-header">
+            <div>
+              <div class="case-title">Внедрение системы учёта для производственной компании</div>
+              <div class="case-meta">Производство · 80 сотрудников</div>
+            </div>
+            <span class="case-tag">Максимум</span>
+          </div>
+          <div class="case-body">
+            <p>Провели полный аудит процессов, заменили Excel-таблицы на интегрированную ERP, обучили отделы. Настроили KPI и мотивацию.</p>
+            <div class="case-result">
+              <span><strong>−40%</strong> потерь на складе</span>
+              <span><strong>+15%</strong> выполнение плана</span>
+            </div>
+          </div>
+        </div>
+        <div class="case" onclick="toggleCase(this)">
+          <div class="case-header">
+            <div>
+              <div class="case-title">Коучинг руководителя IT-аутсорсинговой компании</div>
+              <div class="case-meta">IT-услуги · 25 сотрудников</div>
+            </div>
+            <span class="case-tag">Коучинг</span>
+          </div>
+          <div class="case-body">
+            <p>3 месяца регулярных встреч: постановка целей, делегирование, работа с командой. Руководитель перестал тушить пожары и начал управлять.</p>
+            <div class="case-result">
+              <span><strong>−50%</strong> операционных задач у руководителя</span>
+              <span><strong>+3</strong> новых проекта в портфеле</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="section-label">Контакты</div>
+      <h2>Начните с разговора</h2>
+      <p class="lead">Расскажите о вашей компании, и мы подберём подходящий формат работы.</p>
+      <form class="contact-form" onsubmit="sendForm(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Имя</label>
+            <input type="text" placeholder="Александр" required>
+          </div>
+          <div class="form-group">
+            <label>Телефон</label>
+            <input type="tel" placeholder="+7 (999) 000-00-00" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Компания</label>
+          <input type="text" placeholder="Название и отрасль">
+        </div>
+        <div class="form-group">
+          <label>Интересующий пакет</label>
+          <select>
+            <option>Пока не определился — нужна консультация</option>
+            <option>Старт</option>
+            <option>Оптимизация</option>
+            <option>Максимум</option>
+            <option>Коучинг / сопровождение</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Описание задачи</label>
+          <textarea placeholder="Что хотите улучшить?"></textarea>
+        </div>
+        <button type="submit" class="submit-btn" id="submitBtn">Отправить заявку</button>
+      </form>
+    </section>
+
+    <div class="footer">
+      <p>© Колесо эффективности, 2026</p>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    function scrollToSec(e, id) {
+      if (e) e.preventDefault();
+      document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+      document.querySelectorAll('.site-nav a').forEach(a => a.classList.remove('active'));
+      document.querySelector(`.site-nav a[href="#${id}"]`)?.classList.add('active');
+    }
+
+    function togglePkg(el) {
+      el.classList.toggle('selected');
+      const name = el.querySelector('.package-name').textContent;
+      if (el.classList.contains('selected')) showToast('Добавлено: ' + name);
+    }
+
+    function toggleCase(el) {
+      document.querySelectorAll('.case').forEach(c => { if (c !== el) c.classList.remove('open'); });
+      el.classList.toggle('open');
+    }
+
+    function sendForm(e) {
+      e.preventDefault();
+      const btn = document.getElementById('submitBtn');
+      btn.textContent = 'Заявка отправлена ✓';
+      btn.classList.add('sent');
+      showToast('Мы свяжемся с вами в течение дня');
+      setTimeout(() => { btn.textContent = 'Отправить заявку'; btn.classList.remove('sent'); e.target.reset(); }, 3000);
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    // Highlight nav on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          document.querySelectorAll('.site-nav a').forEach(a => a.classList.remove('active'));
+          document.querySelector(`.site-nav a[href="#${entry.target.id}"]`)?.classList.add('active');
+        }
+      });
+    }, { threshold: 0.4 });
+    document.querySelectorAll('section[id]').forEach(s => observer.observe(s));
+
+    // Animate numbers
+    function animateNums() {
+      document.querySelectorAll('.about-card .num').forEach(el => {
+        const target = +el.dataset.target;
+        let current = 0;
+        const step = target / 35;
+        const timer = setInterval(() => {
+          current += step;
+          if (current >= target) { current = target; clearInterval(timer); }
+          el.textContent = Math.floor(current) + '+';
+        }, 30);
+      });
+    }
+    const numObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { animateNums(); numObs.disconnect(); } });
+    }, { threshold: 0.5 });
+    numObs.observe(document.querySelector('.about-grid'));
+  </script>
+</body>
+</html>
