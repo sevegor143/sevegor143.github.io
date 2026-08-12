@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Админ-панель — Колесо эффективности</title>
+  <style>
+    :root {
+      --primary: #0a2540;
+      --accent: #0066ff;
+      --accent-light: #4d94ff;
+      --green: #00c9a7;
+      --green-light: #5ce1c6;
+      --text: #0a2540;
+      --text-secondary: #425466;
+      --text-muted: #8898aa;
+      --bg: #ffffff;
+      --bg-alt: #f6f9fc;
+      --border: #e3e8ee;
+      --radius: 16px;
+      --radius-sm: 10px;
+      --font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font); color: var(--text); background: var(--bg-alt); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+    .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(255,255,255,0.9); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--primary); font-weight: 700; font-size: 15px; }
+    .logo svg { color: var(--accent); }
+    .nav-links a { text-decoration: none; color: var(--text-secondary); font-size: 14px; font-weight: 500; padding: 8px 14px; border-radius: var(--radius-sm); transition: all 0.2s; }
+    .nav-links a:hover { color: var(--accent); background: rgba(0,102,255,0.06); }
+
+    .page { padding: 100px 0 60px; }
+    .page-title { font-size: 32px; font-weight: 800; margin-bottom: 8px; }
+    .page-subtitle { color: var(--text-secondary); margin-bottom: 32px; }
+
+    /* Login */
+    .login-box { max-width: 420px; margin: 80px auto; padding: 40px; background: #fff; border-radius: var(--radius); border: 1px solid var(--border); box-shadow: 0 8px 32px rgba(10,37,64,0.06); }
+    .login-box h2 { font-size: 22px; margin-bottom: 8px; }
+    .login-box p { font-size: 14px; color: var(--text-secondary); margin-bottom: 24px; }
+    .field { margin-bottom: 16px; }
+    .field label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; color: var(--text-secondary); }
+    .field input, .field select, .field textarea {
+      width: 100%; padding: 12px 14px; border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+      font-family: var(--font); font-size: 14px; color: var(--text); background: #fff; transition: border-color 0.2s;
+    }
+    .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--accent); }
+    .field textarea { resize: vertical; min-height: 80px; }
+    .field small { display: block; margin-top: 4px; font-size: 12px; color: var(--text-muted); }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 12px 24px; border-radius: 100px; font-size: 14px; font-weight: 600;
+      text-decoration: none; cursor: pointer; border: none; transition: all 0.3s; font-family: var(--font);
+    }
+    .btn-primary { background: linear-gradient(135deg, var(--accent) 0%, var(--green) 100%); color: #fff; box-shadow: 0 4px 16px rgba(0,102,255,0.25); }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(0,102,255,0.35); }
+    .btn-secondary { background: #fff; color: var(--primary); border: 1.5px solid var(--border); }
+    .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+    .btn-danger { background: #fff; color: #d32f2f; border: 1.5px solid #ffcdd2; }
+    .btn-danger:hover { background: #ffebee; }
+    .btn-sm { padding: 8px 16px; font-size: 13px; }
+
+    .hidden { display: none !important; }
+
+    /* Dashboard */
+    .toolbar { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 24px; align-items: center; }
+    .toolbar .spacer { flex: 1; }
+
+    .case-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 40px; }
+    .case-row {
+      display: flex; align-items: center; gap: 16px; padding: 16px 20px;
+      background: #fff; border: 1px solid var(--border); border-radius: var(--radius-sm);
+      transition: all 0.2s;
+    }
+    .case-row:hover { border-color: rgba(0,102,255,0.25); box-shadow: 0 4px 12px rgba(10,37,64,0.04); }
+    .case-row .tag {
+      font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;
+      padding: 4px 10px; border-radius: 100px; white-space: nowrap;
+    }
+    .case-row .tag.metallurgy { background: rgba(0,102,255,0.08); color: var(--accent); }
+    .case-row .tag.mining { background: rgba(0,201,167,0.1); color: #009e7f; }
+    .case-row .tag.metals { background: rgba(10,37,64,0.06); color: var(--primary); }
+    .case-row .tag.production { background: rgba(255,140,0,0.08); color: #cc7000; }
+    .case-row .tag.logistics { background: rgba(138,43,226,0.08); color: #6b23b0; }
+    .case-row .tag.other { background: rgba(100,100,100,0.08); color: #555; }
+    .case-row .title { flex: 1; font-weight: 600; font-size: 15px; }
+    .case-row .actions { display: flex; gap: 8px; }
+
+    /* Editor */
+    .editor { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; margin-bottom: 40px; }
+    .editor h3 { font-size: 18px; margin-bottom: 20px; }
+    .editor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 700px) { .editor-grid { grid-template-columns: 1fr; } }
+    .editor .full { grid-column: 1 / -1; }
+    .metrics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+    .notice {
+      padding: 12px 16px; border-radius: var(--radius-sm); font-size: 13px; margin-bottom: 20px;
+    }
+    .notice.info { background: #e8f4fd; color: #0066ff; border: 1px solid #b3d7f7; }
+    .notice.success { background: #e6f9f4; color: #009e7f; border: 1px solid #a3ebd6; }
+    .notice.error { background: #fdecea; color: #d32f2f; border: 1px solid #f5b8b1; }
+
+    .empty-state { text-align: center; padding: 60px 20px; color: var(--text-muted); }
+    .empty-state svg { margin-bottom: 16px; opacity: 0.4; }
+
+    footer { padding: 30px 0; text-align: center; font-size: 13px; color: var(--text-muted); border-top: 1px solid var(--border); margin-top: 40px; }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a href="cases.html" class="logo">
+        <svg width="28" height="28" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="32" cy="32" r="28"/><circle cx="32" cy="32" r="5"/><line x1="32" y1="4" x2="32" y2="27"/><line x1="32" y1="37" x2="32" y2="60"/><line x1="4" y1="32" x2="27" y2="32"/><line x1="37" y1="32" x2="60" y2="32"/></svg>
+        Колесо эффективности
+      </a>
+      <div class="nav-links">
+        <a href="cases.html">← На сайт</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="page">
+    <div class="container">
+
+      <!-- LOGIN -->
+      <div id="loginView">
+        <div class="login-box">
+          <h2>Вход в админ-панель</h2>
+          <p>Управляйте кейсами: добавляйте, редактируйте, удаляйте.</p>
+          <div class="field">
+            <label>Пароль</label>
+            <input type="password" id="passwordInput" placeholder="Введите пароль" onkeydown="if(event.key==='Enter')doLogin()">
+          </div>
+          <div id="loginError" class="notice error hidden" style="margin-top:12px;">Неверный пароль</div>
+          <button class="btn btn-primary" style="width:100%; margin-top:8px;" onclick="doLogin()">Войти</button>
+          <p style="margin-top:16px; font-size:12px; color:var(--text-muted);">Пароль по умолчанию: <code>admin2026</code>. Чтобы сменить — откройте код страницы и измените переменную <code>ADMIN_PASSWORD</code>.</p>
+        </div>
+      </div>
+
+      <!-- DASHBOARD -->
+      <div id="dashboardView" class="hidden">
+        <h1 class="page-title">Управление кейсами</h1>
+        <p class="page-subtitle">Добавляйте новые кейсы или редактируйте существующие. Изменения сохраняются локально и отображаются на странице «Кейсы».</p>
+
+        <div class="toolbar">
+          <button class="btn btn-primary" onclick="openEditor()">+ Добавить кейс</button>
+          <button class="btn btn-secondary" onclick="exportJSON()">⬇ Экспорт JSON</button>
+          <label class="btn btn-secondary" style="cursor:pointer;">
+            ⬆ Импорт JSON
+            <input type="file" id="importFile" accept=".json" style="display:none;" onchange="importJSON(this)">
+          </label>
+          <div class="spacer"></div>
+          <button class="btn btn-secondary btn-sm" onclick="loadDefaults()">Вернуть дефолтные</button>
+          <button class="btn btn-danger btn-sm" onclick="clearAll()">Удалить все</button>
+          <button class="btn btn-secondary btn-sm" onclick="doLogout()">Выйти</button>
+        </div>
+
+        <div id="caseList" class="case-list"></div>
+
+        <!-- EDITOR -->
+        <div id="editorPanel" class="editor hidden">
+          <h3 id="editorTitle">Новый кейс</h3>
+          <div class="editor-grid">
+            <div class="field">
+              <label>Название кейса</label>
+              <input type="text" id="fTitle" placeholder="Например: Оптимизация производственного цикла">
+            </div>
+            <div class="field">
+              <label>Отрасль</label>
+              <select id="fCategory">
+                <option value="metallurgy">Металлургия</option>
+                <option value="mining">Горнодобыча</option>
+                <option value="metals">Цветные металлы</option>
+                <option value="production">Производство</option>
+                <option value="logistics">Логистика</option>
+                <option value="other">Другое</option>
+              </select>
+            </div>
+            <div class="field full">
+              <label>Краткое описание <small>(на карточке под заголовком)</small></label>
+              <textarea id="fShort" placeholder="2-3 предложения о сути проекта..."></textarea>
+            </div>
+            <div class="field">
+              <label>Метрика 1 — Значение</label>
+              <input type="text" id="fM1Val" placeholder="−28%">
+            </div>
+            <div class="field">
+              <label>Метрика 1 — Подпись</label>
+              <input type="text" id="fM1Lbl" placeholder="простоев оборудования">
+            </div>
+            <div class="field">
+              <label>Метрика 2 — Значение <small>(необязательно)</small></label>
+              <input type="text" id="fM2Val" placeholder="+18%">
+            </div>
+            <div class="field">
+              <label>Метрика 2 — Подпись <small>(необязательно)</small></label>
+              <input type="text" id="fM2Lbl" placeholder="выпуск продукции">
+            </div>
+            <div class="field full">
+              <label>Задача <small>(в раскрывающемся блоке)</small></label>
+              <textarea id="fTask" placeholder="Какую проблему решали?"></textarea>
+            </div>
+            <div class="field full">
+              <label>Решение</label>
+              <textarea id="fSolution" placeholder="Что конкретно делали?"></textarea>
+            </div>
+            <div class="field full">
+              <label>Результат</label>
+              <textarea id="fResult" placeholder="Какие цифры получились?"></textarea>
+            </div>
+          </div>
+          <div style="display:flex; gap:12px; margin-top:24px;">
+            <button class="btn btn-primary" onclick="saveCase()">💾 Сохранить кейс</button>
+            <button class="btn btn-secondary" onclick="closeEditor()">Отмена</button>
+            <div class="spacer"></div>
+            <button class="btn btn-danger" id="btnDelete" style="display:none;" onclick="deleteCurrent()">Удалить</button>
+          </div>
+          <div id="editorNotice"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>© Колесо эффективности, 2026 — Админ-панель</p>
+    </div>
+  </footer>
+
+  <script>
+    // ======== НАСТРОЙКИ ========
+    const ADMIN_PASSWORD = "admin2026"; // ← Смените здесь пароль
+    const STORAGE_KEY = "ke_cases_v1";
+
+    // ======== ДЕФОЛТНЫЕ КЕЙСЫ ========
+    const DEFAULT_CASES = [
+      {
+        id: "c1",
+        category: "metallurgy",
+        title: "Оптимизация производственного цикла",
+        shortDesc: "Перестроили процесс плавки и проката. Внедрили систему учёта загрузки печей и нормирования труда.",
+        metrics: [
+          { value: "−28%", label: "простоев оборудования" },
+          { value: "+18%", label: "выпуск продукции" }
+        ],
+        task: "Снизить простои оборудования и увеличить выпуск продукции без расширения штата.",
+        solution: "Провели аудит производственного цикла, выявили узкие места в логистике сырья и простои при смене режимов. Внедрили систему учёта загрузки печей, пересмотрели графики обслуживания, нормировали трудозатраты.",
+        result: "Простои сократились на 28%, выпуск продукции вырос на 18%."
+      },
+      {
+        id: "c2",
+        category: "mining",
+        title: "Изменение системы мотивации",
+        shortDesc: "Улучшили систему мотивации персонала, предприятие стало выполнять план",
+        metrics: [
+          { value: "100%", label: "выполнение плана" }
+        ],
+        task: "Повысить выполнение производственного плана через работу с мотивацией персонала.",
+        solution: "Проанализировали текущую систему KPI, выявили дисбаланс между индивидуальными и командными показателями. Пересмотрели систему премирования, внедрили прозрачные метрики.",
+        result: "Предприятие вышло на 100% выполнение плана."
+      },
+      {
+        id: "c3",
+        category: "metals",
+        title: "Аудит и оптимизация персонала",
+        shortDesc: "Пересмотрели штатное расписание, устранили дублирование функций.",
+        metrics: [
+          { value: "−15%", label: "издержек на ФОТ" },
+          { value: "+40%", label: "повышение эффективности" }
+        ],
+        task: "Сократить издержки на ФОТ без сокращения персонала.",
+        solution: "Провели аудит штатного расписания, выявили дублирование функций между отделами. Перераспределили задачи, оптимизировали численность вспомогательного персонала.",
+        result: "Издержки на ФОТ снизились на 15%, эффективность выросла на 40%."
+      },
+      {
+        id: "c4",
+        category: "production",
+        title: "Внедрение системы управления задачами",
+        shortDesc: "Перевели производственный учёт с Excel на единую цифровую систему.",
+        metrics: [
+          { value: "−35%", label: "времени на отчётность" },
+          { value: "+25%", label: "скорость реакции" }
+        ],
+        task: "Ускорить сбор и анализ производственных данных.",
+        solution: "Подобрали и внедрили систему управления задачами, интегрировали с существующими базами, обучили сотрудников.",
+        result: "Время на отчётность сократилось на 35%, скорость реакции на отклонения выросла на 25%."
+      },
+      {
+        id: "c5",
+        category: "logistics",
+        title: "Оптимизация складской логистики",
+        shortDesc: "Перестроили процессы приёмки, хранения и отгрузки на складе готовой продукции.",
+        metrics: [
+          { value: "−22%", label: "времени обработки заказа" },
+          { value: "−30%", label: "ошибок комплектации" }
+        ],
+        task: "Ускорить обработку заказов и снизить ошибки на складе.",
+        solution: "Проанализировали маршруты движения товара, внедрили зонирование склада, разработали регламенты приёмки и отгрузки.",
+        result: "Время обработки заказа сократилось на 22%, ошибки комплектации — на 30%."
+      },
+      {
+        id: "c6",
+        category: "metallurgy",
+        title: "Расчёт оптимальной численности цеха",
+        shortDesc: "Построили модель численности с учётом загрузки оборудования и норм выработки.",
+        metrics: [
+          { value: "−12%", label: "избыточного персонала" },
+          { value: "+8%", label: "производительность" }
+        ],
+        task: "Оптимизировать численность цеха без потери производительности.",
+        solution: "Построили модель численности на основе производственной программы, норм времени и графиков оборудования. Выявили избыточность в ночных сменах.",
+        result: "Сократили избыточный персонал на 12%, производительность выросла на 8%."
+      }
+    ];
+
+    // ======== STATE ========
+    let cases = [];
+    let editingId = null;
+
+    // ======== INIT ========
+    function init() {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        try { cases = JSON.parse(saved); } catch(e) { cases = [...DEFAULT_CASES]; }
+      } else {
+        cases = [...DEFAULT_CASES];
+        saveStorage();
+      }
+      if (sessionStorage.getItem("ke_admin") === "1") {
+        showDashboard();
+      }
+    }
+
+    function saveStorage() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(cases));
+    }
+
+    // ======== AUTH ========
+    function doLogin() {
+      const val = document.getElementById("passwordInput").value;
+      if (val === ADMIN_PASSWORD) {
+        sessionStorage.setItem("ke_admin", "1");
+        showDashboard();
+      } else {
+        document.getElementById("loginError").classList.remove("hidden");
+      }
+    }
+    function doLogout() {
+      sessionStorage.removeItem("ke_admin");
+      location.reload();
+    }
+    function showDashboard() {
+      document.getElementById("loginView").classList.add("hidden");
+      document.getElementById("dashboardView").classList.remove("hidden");
+      renderList();
+    }
+
+    // ======== LIST ========
+    function renderList() {
+      const box = document.getElementById("caseList");
+      if (cases.length === 0) {
+        box.innerHTML = `<div class="empty-state"><p>Пока нет ни одного кейса. Нажмите «+ Добавить кейс».</p></div>`;
+        return;
+      }
+      const catNames = { metallurgy:"Металлургия", mining:"Горнодобыча", metals:"Цветные металлы", production:"Производство", logistics:"Логистика", other:"Другое" };
+      box.innerHTML = cases.map((c, idx) => `
+        <div class="case-row">
+          <span class="tag ${c.category}">${catNames[c.category] || c.category}</span>
+          <span class="title">${escapeHtml(c.title)}</span>
+          <div class="actions">
+            <button class="btn btn-secondary btn-sm" onclick="editCase('${c.id}')">Редактировать</button>
+            <button class="btn btn-danger btn-sm" onclick="removeCase('${c.id}')">Удалить</button>
+          </div>
+        </div>
+      `).join("");
+    }
+
+    // ======== EDITOR ========
+    function openEditor() {
+      editingId = null;
+      document.getElementById("editorTitle").textContent = "Новый кейс";
+      document.getElementById("btnDelete").style.display = "none";
+      clearForm();
+      document.getElementById("editorPanel").classList.remove("hidden");
+      document.getElementById("editorPanel").scrollIntoView({ behavior: "smooth" });
+    }
+    function closeEditor() {
+      document.getElementById("editorPanel").classList.add("hidden");
+      clearForm();
+      editingId = null;
+    }
+    function clearForm() {
+      ["fTitle","fShort","fM1Val","fM1Lbl","fM2Val","fM2Lbl","fTask","fSolution","fResult"].forEach(id => document.getElementById(id).value = "");
+      document.getElementById("fCategory").selectedIndex = 0;
+      document.getElementById("editorNotice").innerHTML = "";
+    }
+
+    function saveCase() {
+      const title = document.getElementById("fTitle").value.trim();
+      const category = document.getElementById("fCategory").value;
+      const shortDesc = document.getElementById("fShort").value.trim();
+      const task = document.getElementById("fTask").value.trim();
+      const solution = document.getElementById("fSolution").value.trim();
+      const result = document.getElementById("fResult").value.trim();
+      const m1v = document.getElementById("fM1Val").value.trim();
+      const m1l = document.getElementById("fM1Lbl").value.trim();
+      const m2v = document.getElementById("fM2Val").value.trim();
+      const m2l = document.getElementById("fM2Lbl").value.trim();
+
+      if (!title || !shortDesc || !task || !solution || !result || !m1v || !m1l) {
+        showNotice("editorNotice", "Заполните обязательные поля: название, описание, задача, решение, результат и первую метрику.", "error");
+        return;
+      }
+
+      const metrics = [{ value: m1v, label: m1l }];
+      if (m2v && m2l) metrics.push({ value: m2v, label: m2l });
+
+      const payload = { category, title, shortDesc, metrics, task, solution, result };
+
+      if (editingId) {
+        const idx = cases.findIndex(c => c.id === editingId);
+        if (idx !== -1) { cases[idx] = { ...cases[idx], ...payload }; }
+      } else {
+        payload.id = "c" + Date.now();
+        cases.push(payload);
+      }
+
+      saveStorage();
+      renderList();
+      closeEditor();
+    }
+
+    function editCase(id) {
+      const c = cases.find(x => x.id === id);
+      if (!c) return;
+      editingId = id;
+      document.getElementById("fTitle").value = c.title;
+      document.getElementById("fCategory").value = c.category;
+      document.getElementById("fShort").value = c.shortDesc;
+      document.getElementById("fTask").value = c.task;
+      document.getElementById("fSolution").value = c.solution;
+      document.getElementById("fResult").value = c.result;
+      document.getElementById("fM1Val").value = c.metrics[0]?.value || "";
+      document.getElementById("fM1Lbl").value = c.metrics[0]?.label || "";
+      document.getElementById("fM2Val").value = c.metrics[1]?.value || "";
+      document.getElementById("fM2Lbl").value = c.metrics[1]?.label || "";
+      document.getElementById("editorTitle").textContent = "Редактировать кейс";
+      document.getElementById("btnDelete").style.display = "inline-flex";
+      document.getElementById("editorPanel").classList.remove("hidden");
+      document.getElementById("editorPanel").scrollIntoView({ behavior: "smooth" });
+    }
+
+    function deleteCurrent() {
+      if (!editingId) return;
+      removeCase(editingId);
+      closeEditor();
+    }
+
+    function removeCase(id) {
+      if (!confirm("Удалить этот кейс?")) return;
+      cases = cases.filter(c => c.id !== id);
+      saveStorage();
+      renderList();
+    }
+
+    function clearAll() {
+      if (!confirm("Удалить ВСЕ кейсы? Это необратимо.")) return;
+      cases = [];
+      saveStorage();
+      renderList();
+    }
+    function loadDefaults() {
+      if (!confirm("Заменить все текущие кейсы на дефолтные?")) return;
+      cases = JSON.parse(JSON.stringify(DEFAULT_CASES));
+      saveStorage();
+      renderList();
+    }
+
+    // ======== IMPORT / EXPORT ========
+    function exportJSON() {
+      const blob = new Blob([JSON.stringify(cases, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "ke_cases_" + new Date().toISOString().slice(0,10) + ".json";
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+    function importJSON(input) {
+      const file = input.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = e => {
+        try {
+          const data = JSON.parse(e.target.result);
+          if (!Array.isArray(data)) throw new Error("Неверный формат");
+          cases = data;
+          saveStorage();
+          renderList();
+          showNotice("editorNotice", "Импорт успешен! Загружено кейсов: " + data.length, "success");
+        } catch(err) {
+          alert("Ошибка импорта: " + err.message);
+        }
+        input.value = "";
+      };
+      reader.readAsText(file);
+    }
+
+    // ======== UTILS ========
+    function showNotice(id, text, type) {
+      const el = document.getElementById(id);
+      el.innerHTML = `<div class="notice ${type}">${escapeHtml(text)}</div>`;
+    }
+    function escapeHtml(str) {
+      return str.replace(/[&<>"']/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;",""":"&quot;","'":"&#39;"}[m]));
+    }
+
+    init();
+  </script>
+</body>
+</html>
