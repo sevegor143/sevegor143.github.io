@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Наши кейсы по оптимизации — Колесо эффективности</title>
+  <meta name="description" content="Библиотека кейсов по оптимизации бизнес-процессов в металлургии, горнодобыче и других отраслях.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚙️</text></svg>">
+  <style>
+    :root {
+      --primary: #0a2540;
+      --accent: #0066ff;
+      --accent-light: #4d94ff;
+      --green: #00c9a7;
+      --green-light: #5ce1c6;
+      --text: #0a2540;
+      --text-secondary: #425466;
+      --text-muted: #8898aa;
+      --bg: #ffffff;
+      --bg-alt: #f6f9fc;
+      --border: #e3e8ee;
+      --radius: 16px;
+      --radius-sm: 10px;
+      --font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); color: var(--text); background: var(--bg); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+    .reveal { opacity: 0; transform: translateY(30px); transition: var(--transition); }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+
+    .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(255,255,255,0.85); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(227,232,238,0.6); }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--primary); font-weight: 700; font-size: 15px; letter-spacing: -0.01em; }
+    .logo svg { color: var(--accent); }
+    .nav-links { display: flex; gap: 4px; }
+    .nav-links a { text-decoration: none; color: var(--text-secondary); font-size: 14px; font-weight: 500; padding: 8px 14px; border-radius: var(--radius-sm); transition: all 0.2s; }
+    .nav-links a:hover { color: var(--accent); background: rgba(0,102,255,0.06); }
+    .nav-links a.active { color: var(--accent); background: rgba(0,102,255,0.08); font-weight: 600; }
+    .nav-cta { padding: 10px 20px; border-radius: 100px; background: linear-gradient(135deg, var(--accent) 0%, var(--green) 100%); color: #fff; font-size: 13px; font-weight: 600; text-decoration: none; border: none; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 16px rgba(0,102,255,0.25); }
+    .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(0,102,255,0.35); }
+
+    .hero { padding: 140px 0 60px; position: relative; overflow: hidden; background: linear-gradient(180deg, #f0f7ff 0%, #e6f7f4 40%, #ffffff 100%); }
+    .hero-blob { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.45; pointer-events: none; }
+    .hero-blob-1 { width: 500px; height: 500px; background: radial-gradient(circle, var(--accent-light) 0%, transparent 70%); top: -100px; right: -100px; }
+    .hero-blob-2 { width: 400px; height: 400px; background: radial-gradient(circle, var(--green-light) 0%, transparent 70%); bottom: -50px; left: -80px; opacity: 0.3; }
+    .hero-label { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 20px; position: relative; z-index: 1; }
+    .hero-label::before { content: ""; display: block; width: 24px; height: 2px; background: linear-gradient(90deg, var(--accent), var(--green)); border-radius: 2px; }
+    .hero h1 { font-size: clamp(32px, 4vw, 48px); font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; color: var(--primary); margin-bottom: 16px; max-width: 700px; position: relative; z-index: 1; }
+    .hero h1 .gradient-text { background: linear-gradient(135deg, var(--accent) 0%, var(--green) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero p { font-size: 18px; color: var(--text-secondary); max-width: 560px; line-height: 1.6; position: relative; z-index: 1; }
+
+    .btn { display: inline-flex; align-items: center; justify-content: center; padding: 14px 28px; border-radius: 100px; font-size: 15px; font-weight: 600; text-decoration: none; cursor: pointer; border: none; transition: all 0.3s; font-family: var(--font); }
+    .btn-accent { background: linear-gradient(135deg, var(--accent) 0%, #0088cc 50%, var(--green) 100%); color: #fff; box-shadow: 0 4px 20px rgba(0,102,255,0.3); }
+    .btn-accent:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,102,255,0.4); }
+    .btn-outline { background: transparent; color: var(--primary); border: 1.5px solid var(--border); }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); background: rgba(0,102,255,0.04); }
+
+    .section-header { margin-bottom: 40px; }
+    .section-label { font-size: 12px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px; }
+    .section-title { font-size: clamp(28px, 3.5vw, 40px); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; color: var(--primary); margin-bottom: 16px; }
+    .section-title .gradient-text { background: linear-gradient(135deg, var(--accent) 0%, var(--green) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .section-desc { font-size: 17px; color: var(--text-secondary); max-width: 640px; line-height: 1.6; }
+
+    .filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 32px; }
+    .filter-btn { padding: 8px 18px; border-radius: 100px; border: 1.5px solid var(--border); background: transparent; font-size: 14px; font-weight: 500; color: var(--text-secondary); cursor: pointer; transition: all 0.2s; font-family: var(--font); }
+    .filter-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .filter-btn.active { background: linear-gradient(135deg, var(--accent) 0%, var(--green) 100%); color: #fff; border-color: transparent; box-shadow: 0 4px 16px rgba(0,102,255,0.2); }
+
+    .cases-section { padding: 60px 0 100px; }
+    .cases-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .case-card { padding: 32px; border-radius: var(--radius); background: #ffffff; border: 1px solid var(--border); transition: all 0.4s; position: relative; overflow: hidden; cursor: pointer; }
+    .case-card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--accent), var(--green)); opacity: 0; transition: opacity 0.3s; }
+    .case-card:hover { box-shadow: 0 16px 48px rgba(10,37,64,0.08); border-color: rgba(0,102,255,0.2); transform: translateY(-4px); }
+    .case-card:hover::before { opacity: 1; }
+    .case-card.hidden { display: none; }
+    .case-tag { display: inline-block; padding: 4px 12px; border-radius: 100px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 16px; }
+    .case-tag.metallurgy { background: linear-gradient(135deg, rgba(0,102,255,0.1) 0%, rgba(0,102,255,0.04) 100%); color: var(--accent); }
+    .case-tag.mining { background: linear-gradient(135deg, rgba(0,201,167,0.12) 0%, rgba(0,201,167,0.04) 100%); color: #009e7f; }
+    .case-tag.metals { background: linear-gradient(135deg, rgba(10,37,64,0.08) 0%, rgba(10,37,64,0.02) 100%); color: var(--primary); }
+    .case-tag.production { background: linear-gradient(135deg, rgba(255,140,0,0.1) 0%, rgba(255,140,0,0.04) 100%); color: #cc7000; }
+    .case-tag.logistics { background: linear-gradient(135deg, rgba(138,43,226,0.1) 0%, rgba(138,43,226,0.04) 100%); color: #6b23b0; }
+    .case-tag.other { background: linear-gradient(135deg, rgba(100,100,100,0.1) 0%, rgba(100,100,100,0.04) 100%); color: #555; }
+    .case-card h3 { font-size: 18px; font-weight: 700; color: var(--primary); margin-bottom: 12px; line-height: 1.3; }
+    .case-card p { font-size: 14px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 20px; }
+    .case-result { display: flex; gap: 20px; padding-top: 16px; border-top: 1px solid var(--border); }
+    .case-result div { font-size: 13px; color: var(--text-secondary); }
+    .case-result strong { display: block; font-size: 22px; font-weight: 800; background: linear-gradient(135deg, var(--accent) 0%, var(--green) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-variant-numeric: tabular-nums; }
+    .case-detail { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.22,1,0.36,1); }
+    .case-card.open .case-detail { max-height: 400px; margin-top: 16px; }
+    .case-detail p { font-size: 14px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 12px; }
+    .case-detail p:last-child { margin-bottom: 0; }
+    .case-detail strong { color: var(--primary); }
+
+    .footer { padding: 40px 0; border-top: 1px solid var(--border); background: linear-gradient(180deg, var(--bg-alt) 0%, #ffffff 100%); }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; }
+    .footer p { font-size: 13px; color: var(--text-muted); }
+    .footer-links { display: flex; gap: 20px; }
+    .footer-links a { font-size: 13px; color: var(--text-secondary); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--accent); }
+    .footer-links a.admin-link { color: var(--text-muted); }
+    .footer-links a.admin-link:hover { color: var(--accent); }
+
+    @media (max-width: 900px) {
+      .cases-grid { grid-template-columns: repeat(2, 1fr); }
+      .nav-links { display: none; }
+    }
+    @media (max-width: 600px) {
+      .cases-grid { grid-template-columns: 1fr; }
+      .hero { padding: 120px 0 40px; }
+      .filters { gap: 6px; }
+      .filter-btn { padding: 6px 14px; font-size: 13px; }
+      .footer-inner { flex-direction: column; gap: 12px; text-align: center; }
+    }
+
+    .privacy-modal { display: none; position: fixed; inset: 0; z-index: 300; background: rgba(10,37,64,0.5); backdrop-filter: blur(4px); align-items: center; justify-content: center; padding: 24px; }
+    .privacy-modal.active { display: flex; }
+    .privacy-box { max-width: 600px; max-height: 80vh; overflow-y: auto; background: #fff; border-radius: var(--radius); padding: 32px; border: 1px solid var(--border); box-shadow: 0 20px 60px rgba(10,37,64,0.2); }
+    .privacy-box h3 { font-size: 20px; font-weight: 800; margin-bottom: 16px; color: var(--primary); }
+    .privacy-box p { font-size: 14px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 12px; }
+    .privacy-close { margin-top: 16px; padding: 12px 28px; border-radius: 100px; border: none; background: linear-gradient(135deg, var(--accent) 0%, var(--green) 100%); color: #fff; font-weight: 600; cursor: pointer; font-family: var(--font); font-size: 14px; transition: all 0.3s; }
+    .privacy-close:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,102,255,0.3); }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a href="index.html" class="logo">
+        <svg width="28" height="28" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="32" cy="32" r="28"/><path d="M20 44V20" stroke-linecap="round"/><path d="M20 32L32 20" stroke-linecap="round"/><path d="M20 32L32 44" stroke-linecap="round"/><path d="M36 36L44 28M44 28V36M44 28H36" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Колесо эффективности
+      </a>
+      <div class="nav-links">
+        <a href="index.html#about">О нас</a>
+        <a href="index.html#process">Подход</a>
+        <a href="cases.html" class="active">Кейсы</a>
+        <a href="index.html#packages">Пакеты</a>
+      </div>
+      <a href="index.html#brief" class="nav-cta">Заполнить бриф</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-blob hero-blob-1"></div>
+    <div class="hero-blob hero-blob-2"></div>
+    <div class="container">
+      <div class="hero-label reveal">Библиотека</div>
+      <h1 class="reveal reveal-delay-1">Наши кейсы по <span class="gradient-text">оптимизации</span></h1>
+      <p class="reveal reveal-delay-2">Реальные проекты в металлургии, горнодобыче и других отраслях. Выберите отрасль или смотрите все.</p>
+    </div>
+  </section>
+
+  <section class="cases-section">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-label">Фильтр</div>
+        <h2 class="section-title">Выберите <span class="gradient-text">отрасль</span></h2>
+      </div>
+
+      <div class="filters reveal">
+        <button class="filter-btn active" data-filter="all" onclick="filterCases('all', this)">Все кейсы</button>
+        <button class="filter-btn" data-filter="metallurgy" onclick="filterCases('metallurgy', this)">Металлургия</button>
+        <button class="filter-btn" data-filter="mining" onclick="filterCases('mining', this)">Горнодобыча</button>
+        <button class="filter-btn" data-filter="metals" onclick="filterCases('metals', this)">Цветные металлы</button>
+        <button class="filter-btn" data-filter="production" onclick="filterCases('production', this)">Производство</button>
+        <button class="filter-btn" data-filter="logistics" onclick="filterCases('logistics', this)">Логистика</button>
+      </div>
+
+      <div class="cases-grid" id="casesGrid"></div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p>© Колесо эффективности, 2026</p>
+      <div class="footer-links">
+        <a href="index.html#about">О нас</a>
+        <a href="cases.html">Кейсы</a>
+        <a href="index.html#packages">Услуги</a>
+        <a href="index.html#contact">Контакты</a>
+        <a href="#" onclick="document.getElementById('privacyModal').classList.add('active'); return false;">Политика конфиденциальности</a>
+        <a href="admin.html" class="admin-link" title="Админ-панель">⚙</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const DEFAULT_CASES = [
+        {
+          id: "c1",
+          category: "metallurgy",
+          title: "Оптимизация производственного цикла",
+          shortDesc: "Перестроили процесс плавки и проката. Внедрили систему учёта загрузки печей и нормирования труда.",
+          metrics: [
+            { value: "−28%", label: "простоев оборудования" },
+            { value: "+18%", label: "выпуск продукции" }
+          ],
+          task: "Снизить простои оборудования и увеличить выпуск продукции без расширения штата.",
+          solution: "Провели аудит производственного цикла, выявили узкие места в логистике сырья и простои при смене режимов. Внедрили систему учёта загрузки печей, пересмотрели графики обслуживания, нормировали трудозатраты.",
+          result: "Простои сократились на 28%, выпуск продукции вырос на 18%."
+        },
+        {
+          id: "c2",
+          category: "mining",
+          title: "Изменение системы мотивации",
+          shortDesc: "Улучшили систему мотивации персонала, предприятие стало выполнять план",
+          metrics: [
+            { value: "100%", label: "выполнение плана" }
+          ],
+          task: "Повысить выполнение производственного плана через работу с мотивацией персонала.",
+          solution: "Проанализировали текущую систему KPI, выявили дисбаланс между индивидуальными и командными показателями. Пересмотрели систему премирования, внедрили прозрачные метрики.",
+          result: "Предприятие вышло на 100% выполнение плана."
+        },
+        {
+          id: "c3",
+          category: "metals",
+          title: "Аудит и оптимизация персонала",
+          shortDesc: "Пересмотрели штатное расписание, устранили дублирование функций.",
+          metrics: [
+            { value: "−15%", label: "издержек на ФОТ" },
+            { value: "+40%", label: "повышение эффективности" }
+          ],
+          task: "Сократить издержки на ФОТ без сокращения персонала.",
+          solution: "Провели аудит штатного расписания, выявили дублирование функций между отделами. Перераспределили задачи, оптимизировали численность вспомогательного персонала.",
+          result: "Издержки на ФОТ снизились на 15%, эффективность выросла на 40%."
+        },
+        {
+          id: "c4",
+          category: "production",
+          title: "Внедрение системы управления задачами",
+          shortDesc: "Перевели производственный учёт с Excel на единую цифровую систему.",
+          metrics: [
+            { value: "−35%", label: "времени на отчётность" },
+            { value: "+25%", label: "скорость реакции" }
+          ],
+          task: "Ускорить сбор и анализ производственных данных.",
+          solution: "Подобрали и внедрили систему управления задачами, интегрировали с существующими базами, обучили сотрудников.",
+          result: "Время на отчётность сократилось на 35%, скорость реакции на отклонения выросла на 25%."
+        },
+        {
+          id: "c5",
+          category: "logistics",
+          title: "Оптимизация складской логистики",
+          shortDesc: "Перестроили процессы приёмки, хранения и отгрузки на складе готовой продукции.",
+          metrics: [
+            { value: "−22%", label: "времени обработки заказа" },
+            { value: "−30%", label: "ошибок комплектации" }
+          ],
+          task: "Ускорить обработку заказов и снизить ошибки на складе.",
+          solution: "Проанализировали маршруты движения товара, внедрили зонирование склада, разработали регламенты приёмки и отгрузки.",
+          result: "Время обработки заказа сократилось на 22%, ошибки комплектации — на 30%."
+        },
+        {
+          id: "c6",
+          category: "metallurgy",
+          title: "Расчёт оптимальной численности цеха",
+          shortDesc: "Построили модель численности с учётом загрузки оборудования и норм выработки.",
+          metrics: [
+            { value: "−12%", label: "избыточного персонала" },
+            { value: "+8%", label: "производительность" }
+          ],
+          task: "Оптимизировать численность цеха без потери производительности.",
+          solution: "Построили модель численности на основе производственной программы, норм времени и графиков оборудования. Выявили избыточность в ночных сменах.",
+          result: "Сократили избыточный персонал на 12%, производительность выросла на 8%."
+        }
+      ];
+
+      const STORAGE_KEY = "ke_cases_v1";
+      const CAT_NAMES = {
+        metallurgy: "Металлургия",
+        mining: "Горнодобыча",
+        metals: "Цветные металлы",
+        production: "Производство",
+        logistics: "Логистика",
+        other: "Другое"
+      };
+
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+      function loadCases() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if (raw) return JSON.parse(raw);
+        } catch (e) {}
+        return DEFAULT_CASES;
+      }
+
+      function escapeHtml(str) {
+        return str
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#39;");
+      }
+
+      function renderCases() {
+        const cases = loadCases();
+        const grid = document.getElementById("casesGrid");
+        if (!grid) return;
+        grid.innerHTML = cases.map((c, i) => {
+          const delayClass = i % 3 === 1 ? "reveal-delay-1" : i % 3 === 2 ? "reveal-delay-2" : "";
+          const metricsHtml = c.metrics.map(m =>
+            '<div><strong>' + escapeHtml(m.value) + '</strong>' + escapeHtml(m.label) + '</div>'
+          ).join("");
+          return (
+            '<div class="case-card reveal ' + delayClass + '" data-category="' + escapeHtml(c.category) + '" onclick="toggleCase(this)">' +
+              '<span class="case-tag ' + escapeHtml(c.category) + '">' + escapeHtml(CAT_NAMES[c.category] || c.category) + '</span>' +
+              '<h3>' + escapeHtml(c.title) + '</h3>' +
+              '<p>' + escapeHtml(c.shortDesc) + '</p>' +
+              '<div class="case-result">' + metricsHtml + '</div>' +
+              '<div class="case-detail">' +
+                '<p><strong>Задача:</strong> ' + escapeHtml(c.task) + '</p>' +
+                '<p><strong>Решение:</strong> ' + escapeHtml(c.solution) + '</p>' +
+                '<p><strong>Результат:</strong> ' + escapeHtml(c.result) + '</p>' +
+              '</div>' +
+            '</div>'
+          );
+        }).join("");
+
+        document.querySelectorAll('#casesGrid .reveal').forEach(el => revealObserver.observe(el));
+      }
+
+      window.filterCases = function(category, btn) {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        document.querySelectorAll('.case-card').forEach(card => {
+          if (category === 'all' || card.dataset.category === category) {
+            card.classList.remove('hidden');
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+      };
+
+      window.toggleCase = function(card) {
+        const wasOpen = card.classList.contains('open');
+        document.querySelectorAll('.case-card').forEach(c => c.classList.remove('open'));
+        if (!wasOpen) card.classList.add('open');
+      };
+
+      renderCases();
+    });
+  </script>
+
+  <div class="privacy-modal" id="privacyModal" onclick="if(event.target===this)this.classList.remove('active')">
+    <div class="privacy-box">
+      <h3>Политика конфиденциальности</h3>
+      <p>Мы собираем и обрабатываем персональные данные (имя, телефон, email, название компании) исключительно для подготовки коммерческого предложения и связи с вами.</p>
+      <p>Данные передаются по защищённому соединению и не передаются третьим лицам. Хранение осуществляется в течение 1 года с момента последнего контакта, после чего удаляются.</p>
+      <p>Вы вправе в любой момент запросить удаление ваших данных, направив запрос через указанные каналы связи.</p>
+      <button class="privacy-close" onclick="document.getElementById('privacyModal').classList.remove('active')">Закрыть</button>
+    </div>
+  </div>
+</body>
+</html>
