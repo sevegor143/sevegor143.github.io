@@ -198,15 +198,6 @@
     .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,102,255,0.35); }
     .submit-btn.sent { background: linear-gradient(135deg, var(--green) 0%, #00a884 100%); pointer-events: none; }
 
-    /* Lead Magnet */
-    .lead-magnet { padding: 80px 0; background: linear-gradient(135deg, var(--bg-alt) 0%, #f0f7ff 50%, #e6f7f4 100%); position: relative; overflow: hidden; }
-    .lead-magnet::before { content: ""; position: absolute; width: 400px; height: 400px; border-radius: 50%; background: radial-gradient(circle, rgba(0,102,255,0.08) 0%, transparent 70%); top: -150px; right: -100px; pointer-events: none; }
-    .lead-magnet-inner { display: flex; align-items: center; gap: 48px; max-width: 900px; margin: 0 auto; position: relative; z-index: 1; }
-    .lead-magnet-content { flex: 1; }
-    .lead-magnet-visual { flex-shrink: 0; }
-    .lead-magnet-icon { width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--green)); display: flex; align-items: center; justify-content: center; font-size: 56px; box-shadow: 0 12px 40px rgba(0,102,255,0.2); }
-    @media (max-width: 700px) { .lead-magnet-inner { flex-direction: column; text-align: center; gap: 32px; } .lead-magnet-icon { width: 90px; height: 90px; font-size: 40px; } }
-
     /* Industries */
     .industries { padding: 100px 0; background: linear-gradient(180deg, #ffffff 0%, var(--bg-alt) 100%); }
     .industries-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
@@ -220,16 +211,21 @@
     @media (max-width: 900px) { .industries-grid { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 600px) { .industries-grid { grid-template-columns: 1fr; } }
 
-    /* Methodology */
-    .methodology { padding: 80px 0; background: linear-gradient(180deg, var(--bg-alt) 0%, #ffffff 100%); }
-    .method-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-    .method-item { padding: 28px 20px; background: linear-gradient(135deg, #ffffff 0%, var(--bg-alt) 100%); border-radius: var(--radius-sm); border: 1.5px solid var(--border); text-align: center; transition: all 0.3s; }
-    .method-item:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,102,255,0.08); }
-    .method-item .m-icon { width: 48px; height: 48px; margin: 0 auto 14px; background: linear-gradient(135deg, var(--accent), var(--green)); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 18px; font-weight: 800; box-shadow: 0 4px 12px rgba(0,102,255,0.2); }
-    .method-item h4 { font-size: 14px; font-weight: 700; color: var(--primary); margin-bottom: 8px; }
-    .method-item p { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
-    @media (max-width: 900px) { .method-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 600px) { .method-grid { grid-template-columns: 1fr; } }
+    /* Lead Magnet */
+    .lead-magnet { padding: 80px 0; background: linear-gradient(135deg, var(--bg-alt) 0%, #f0f7ff 50%, #e6f7f4 100%); position: relative; overflow: hidden; }
+    .lead-magnet::before { content: ""; position: absolute; width: 400px; height: 400px; border-radius: 50%; background: radial-gradient(circle, rgba(0,102,255,0.08) 0%, transparent 70%); top: -150px; right: -100px; pointer-events: none; }
+    .lead-magnet-inner { display: flex; align-items: center; gap: 48px; max-width: 900px; margin: 0 auto; position: relative; z-index: 1; }
+    .lead-magnet-content { flex: 1; }
+    .lead-magnet-visual { flex-shrink: 0; }
+    .lead-magnet-icon { width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--green)); display: flex; align-items: center; justify-content: center; font-size: 56px; box-shadow: 0 12px 40px rgba(0,102,255,0.2); }
+    @media (max-width: 700px) { .lead-magnet-inner { flex-direction: column; text-align: center; gap: 32px; } .lead-magnet-icon { width: 90px; height: 90px; font-size: 40px; } }
+
+    /* Contact section */
+    .contact { padding: 80px 0; background: linear-gradient(180deg, var(--bg-alt) 0%, #ffffff 100%); }
+    .contact-chips { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; margin-top: 8px; }
+    .contact-chip { display: inline-flex; align-items: center; gap: 10px; padding: 14px 24px; border-radius: 100px; background: #ffffff; border: 1.5px solid var(--border); color: var(--primary); font-size: 14px; font-weight: 600; text-decoration: none; transition: all 0.3s; box-shadow: 0 2px 10px rgba(10,37,64,0.05); cursor: pointer; }
+    .contact-chip:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,102,255,0.12); }
+    .contact-chip svg { color: var(--accent); }
 
     /* Footer */
     .selected-bar { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(12px); border-top: 1px solid var(--border); padding: 14px 0; z-index: 150; transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.22,1,0.36,1); box-shadow: 0 -4px 20px rgba(10,37,64,0.06); }
@@ -444,6 +440,7 @@
         <a href="#process">Подход</a>
         <a href="cases.html">Кейсы</a>
         <a href="#packages">Пакеты</a>
+        <a href="#contact">Контакты</a>
       </div>
       <a href="#brief" class="nav-cta">Заполнить бриф</a>
     </div>
@@ -499,38 +496,6 @@
             <div class="num" data-target="6">0</div>
             <div class="label">отраслей охвачено</div>
           </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="methodology" id="methodology">
-    <div class="container">
-      <div class="section-header reveal">
-        <div class="section-label">Методология</div>
-        <h2 class="section-title">Как мы <span class="gradient-text">работаем</span></h2>
-        <p class="section-desc">Классический подход EY без 200-страничных отчётов. Только то, что внедряется за 2–4 недели.</p>
-      </div>
-      <div class="method-grid reveal">
-        <div class="method-item">
-          <div class="m-icon">1</div>
-          <h4>Карта AS-IS</h4>
-          <p>Фиксируем текущие процессы и находим скрытые потери</p>
-        </div>
-        <div class="method-item">
-          <div class="m-icon">2</div>
-          <h4>Матрица RACI</h4>
-          <p>Распределяем ответственность и убираем дублирование функций</p>
-        </div>
-        <div class="method-item">
-          <div class="m-icon">3</div>
-          <h4>Нормирование труда</h4>
-          <p>Рассчитываем оптимальную численность и загрузку персонала</p>
-        </div>
-        <div class="method-item">
-          <div class="m-icon">4</div>
-          <h4>Модель TO-BE</h4>
-          <p>Проектируем процессы без потерь и внедряем за 2–4 недели</p>
         </div>
       </div>
     </div>
@@ -960,6 +925,7 @@
         <a href="cases.html">Кейсы</a>
         <a href="#packages">Услуги</a>
         <a href="Checklist.html" target="_blank">Чек-лист</a>
+        <a href="#contact">Контакты</a>
         <a href="#brief">Бриф</a>
         <a href="#" onclick="document.getElementById('privacyModal').classList.add('active'); return false;">Политика конфиденциальности</a>
       </div>

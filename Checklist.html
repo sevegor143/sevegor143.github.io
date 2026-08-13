@@ -73,6 +73,27 @@
     .footer { padding: 30px 0; text-align: center; font-size: 13px; color: var(--text-muted); border-top: 1px solid var(--border); }
     .footer a { color: var(--accent); text-decoration: none; }
 
+    /* Lead Magnet Overlay */
+    .lm-overlay { position: fixed; inset: 0; z-index: 500; background: rgba(10,37,64,0.6); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; padding: 24px; transition: opacity 0.4s, visibility 0.4s; }
+    .lm-overlay.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+    .lm-box { max-width: 480px; width: 100%; background: #fff; border-radius: var(--radius); padding: 40px; border: 1px solid var(--border); box-shadow: 0 24px 80px rgba(10,37,64,0.25); text-align: center; }
+    .lm-box .lm-icon { width: 72px; height: 72px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--green)); display: flex; align-items: center; justify-content: center; font-size: 36px; margin: 0 auto 20px; box-shadow: 0 8px 24px rgba(0,102,255,0.2); }
+    .lm-box h2 { font-size: 22px; font-weight: 800; color: var(--primary); margin-bottom: 8px; }
+    .lm-box p { font-size: 14px; color: var(--text-secondary); margin-bottom: 24px; line-height: 1.6; }
+    .lm-field { margin-bottom: 14px; text-align: left; }
+    .lm-field label { display: block; font-size: 13px; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px; }
+    .lm-field input { width: 100%; padding: 12px 16px; border: 1.5px solid var(--border); border-radius: var(--radius-sm); font-family: var(--font); font-size: 14px; color: var(--text); outline: none; transition: all 0.2s; }
+    .lm-field input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(0,102,255,0.1); }
+    .lm-btn { width: 100%; padding: 14px; border-radius: 100px; border: none; background: linear-gradient(135deg, var(--accent) 0%, var(--green) 100%); color: #fff; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.3s; font-family: var(--font); box-shadow: 0 4px 16px rgba(0,102,255,0.25); margin-top: 8px; }
+    .lm-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,102,255,0.35); }
+    .lm-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+    .lm-privacy { margin-top: 16px; font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+    .lm-privacy a { color: var(--accent); text-decoration: none; }
+    .lm-success { display: none; text-align: center; padding: 20px 0; }
+    .lm-success .success-icon { width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, var(--green), #00a884); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 28px; margin: 0 auto 16px; box-shadow: 0 8px 24px rgba(0,201,167,0.3); }
+    .lm-success h3 { font-size: 20px; font-weight: 800; color: var(--primary); margin-bottom: 8px; }
+    .lm-success p { font-size: 14px; color: var(--text-secondary); margin-bottom: 20px; }
+
     @media print {
       .progress-wrap, .btn, .contact-row { display: none !important; }
       .check-item { break-inside: avoid; page-break-inside: avoid; }
@@ -307,7 +328,7 @@
 
   <footer class="footer">
     <div class="container">
-      <p>© Колесо эффективности, 2026 | <a href="index.html">← На главную</a> | <a href="contacts.html">Контакты</a></p>
+      <p>© Колесо эффективности, 2026 | <a href="index.html">← На главную</a> | <a href="index.html#contact">Контакты</a></p>
     </div>
   </footer>
 
@@ -325,6 +346,95 @@
       document.getElementById('progressPercent').textContent = pct + '%';
     }
     updateProgress();
+
+    // Lead Magnet Logic
+    const FORMSPREE_URL_LM = 'https://formspree.io/f/xbgrdvon';
+
+    // Маска телефона
+    document.getElementById('lmPhone').addEventListener('input', function(e) {
+      let v = e.target.value.replace(/\D/g, '');
+      if (v.length > 0 && v[0] === '7') v = v.substring(1);
+      if (v.length > 0 && v[0] === '8') v = v.substring(1);
+      let s = '';
+      if (v.length > 0) s = '+7';
+      if (v.length > 0) s += ' (' + v.substring(0, 3);
+      if (v.length >= 3) s += ')';
+      if (v.length > 3) s += ' ' + v.substring(3, 6);
+      if (v.length > 6) s += '-' + v.substring(6, 8);
+      if (v.length > 8) s += '-' + v.substring(8, 10);
+      e.target.value = s;
+    });
+
+    function sendLead(e) {
+      e.preventDefault();
+      const btn = document.getElementById('lmBtn');
+      const form = e.target;
+      btn.disabled = true;
+      btn.textContent = 'Отправка...';
+
+      const formData = new FormData(form);
+      formData.append('_subject', 'Новый лид с чек-листа — ' + (form.name.value || 'Без имени'));
+      if (form.email.value) formData.append('_replyto', form.email.value);
+
+      fetch(FORMSPREE_URL_LM, {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: formData
+      })
+      .then(async r => {
+        const data = await r.json();
+        if (r.ok) {
+          document.getElementById('lmFormBox').style.display = 'none';
+          document.getElementById('lmSuccess').style.display = 'block';
+        } else {
+          throw new Error(data.error || 'Ошибка');
+        }
+      })
+      .catch(err => {
+        console.error(err);
+        btn.disabled = false;
+        btn.textContent = 'Получить чек-лист';
+        alert('Не удалось отправить. Проверьте соединение и попробуйте ещё раз.');
+      });
+    }
+
+    function closeLm() {
+      document.getElementById('lmOverlay').classList.add('hidden');
+    }
   </script>
+
+  <!-- Lead Magnet Overlay -->
+  <div class="lm-overlay" id="lmOverlay">
+    <div class="lm-box">
+      <div class="lm-form" id="lmFormBox">
+        <div class="lm-icon">📋</div>
+        <h2>Получите чек-лист</h2>
+        <p>Оставьте контакт — мы вышлем чек-лист и сможем проконсультировать по вашей ситуации. Начните решать проблемы уже сейчас!</p>
+        <form id="lmForm" onsubmit="sendLead(event)">
+          <div class="lm-field">
+            <label>Имя <span style="color:var(--accent)">*</span></label>
+            <input type="text" name="name" placeholder="Иван Иванов" required>
+          </div>
+          <div class="lm-field">
+            <label>Телефон <span style="color:var(--accent)">*</span></label>
+            <input type="tel" name="phone" placeholder="+7 (999) 000-00-00" required id="lmPhone">
+          </div>
+          <div class="lm-field">
+            <label>Email</label>
+            <input type="email" name="email" placeholder="ivan@company.ru">
+          </div>
+          <button type="submit" class="lm-btn" id="lmBtn">Получить чек-лист</button>
+        </form>
+        <p class="lm-privacy">Нажимая кнопку, вы соглашаетесь с <a href="#" onclick="document.getElementById('privacyModal').classList.add('active'); return false;">политикой конфиденциальности</a></p>
+      </div>
+      <div class="lm-success" id="lmSuccess">
+        <div class="success-icon">✓</div>
+        <h3>Готово!</h3>
+        <p>Спасибо! Мы получили ваши контакты и скоро свяжемся. А пока — ваш чек-лист:</p>
+        <button class="lm-btn" onclick="closeLm()">Открыть чек-лист</button>
+      </div>
+    </div>
+  </div>
+
 </body>
 </html>
