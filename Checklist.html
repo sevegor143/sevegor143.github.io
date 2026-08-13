@@ -427,53 +427,38 @@
       e.preventDefault();
       const btn = document.getElementById('lmBtn');
       const form = e.target;
-      btn.disabled = true;
-      btn.textContent = 'Отправка...';
 
+      // Сразу показываем успех — пользователь не ждёт
+      localStorage.setItem(LM_STORAGE_KEY, '1');
+      document.getElementById('lmFormBox').style.display = 'none';
+      document.getElementById('lmSuccess').style.display = 'block';
+
+      // Отправка в фоне
       const fd = new FormData(form);
       fd.append('_subject', 'Новый лид с чек-листа — ' + (form.name.value || 'Без имени'));
       if (form.email.value) fd.append('_replyto', form.email.value);
 
-      // Пытаемся отправить. Если не получится — всё равно покажем чек-лист,
-      // чтобы пользователь не застрял на ошибке.
+      // Способ 1: fetch (быстрый, если работает)
       fetch('https://formspree.io/f/xbgrdvon', {
         method: 'POST',
         mode: 'cors',
         headers: { 'Accept': 'application/json' },
         body: fd
-      })
-      .then(r => r.json().then(data => ({ ok: r.ok, data: data })))
-      .then(({ ok, data }) => {
-        if (ok) {
-          console.log('Formspree OK:', data);
-        } else {
-          console.warn('Formspree ответил с ошибкой:', data);
-        }
-      })
-      .catch(err => {
-        console.warn('Formspree не доступен (CORS/сеть):', err);
-        // Фallback: отправляем через невидимую форму в фоне
-        const fallbackForm = document.createElement('form');
-        fallbackForm.action = 'https://formspree.io/f/xbgrdvon';
-        fallbackForm.method = 'POST';
-        fallbackForm.target = '_blank';
-        fallbackForm.style.display = 'none';
+      }).catch(() => {
+        // Способ 2: fallback через невидимую форму
+        const ff = document.createElement('form');
+        ff.action = 'https://formspree.io/f/xbgrdvon';
+        ff.method = 'POST';
+        ff.target = '_blank';
+        ff.style.display = 'none';
         for (let [k, v] of fd.entries()) {
-          const input = document.createElement('input');
-          input.type = 'hidden';
-          input.name = k;
-          input.value = v;
-          fallbackForm.appendChild(input);
+          const inp = document.createElement('input');
+          inp.type = 'hidden'; inp.name = k; inp.value = v;
+          ff.appendChild(inp);
         }
-        document.body.appendChild(fallbackForm);
-        fallbackForm.submit();
-        document.body.removeChild(fallbackForm);
-      })
-      .finally(() => {
-        // В любом случае показываем успех и открываем чек-лист
-        localStorage.setItem(LM_STORAGE_KEY, '1');
-        document.getElementById('lmFormBox').style.display = 'none';
-        document.getElementById('lmSuccess').style.display = 'block';
+        document.body.appendChild(ff);
+        ff.submit();
+        setTimeout(() => { if(ff.parentNode) ff.parentNode.removeChild(ff); }, 2000);
       });
     }
 
