@@ -208,7 +208,10 @@
     .industry-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 10px; color: var(--primary); }
     .industry-card p { font-size: 13px; color: var(--text-secondary); line-height: 1.55; margin-bottom: 12px; }
     .industry-card .ind-metric { font-size: 14px; font-weight: 700; background: linear-gradient(135deg, var(--accent), var(--green)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-    @media (max-width: 900px) { .industries-grid { grid-template-columns: repeat(2, 1fr); } }
+        .contact-section { padding: 60px 0; background: linear-gradient(180deg, #ffffff 0%, var(--bg-alt) 100%); }
+    .contact-section .section-header { margin-bottom: 32px; }
+    .contact-section .section-title { font-size: clamp(24px, 3vw, 32px); }
+@media (max-width: 900px) { .industries-grid { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 600px) { .industries-grid { grid-template-columns: 1fr; } }
 
     /* Lead Magnet */
@@ -236,8 +239,7 @@
     .selected-name { font-size: 15px; font-weight: 700; color: var(--primary); }
     .selected-price { font-size: 15px; font-weight: 700; background: linear-gradient(135deg,var(--accent),var(--green)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
     .package-card.selected { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(0,102,255,0.1); }
-    .package-cta.selected { background: linear-gradient(135deg,var(--accent),var(--green)); color:#fff; border-color:transparent; }
-
+    
     .footer { padding: 40px 0; border-top: 1px solid var(--border); background: linear-gradient(180deg, var(--bg-alt) 0%, #ffffff 100%); }
     .footer-inner { display: flex; justify-content: space-between; align-items: center; }
     .footer p { font-size: 13px; color: var(--text-muted); }
@@ -249,7 +251,10 @@
     .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px); background: linear-gradient(135deg, var(--primary) 0%, #1a3a5c 100%); color: #fff; padding: 12px 24px; border-radius: 100px; font-size: 14px; font-weight: 500; opacity: 0; transition: all 0.4s cubic-bezier(0.22,1,0.36,1); pointer-events: none; z-index: 200; box-shadow: 0 8px 32px rgba(10,37,64,0.25); }
     .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-    @media (max-width: 900px) {
+        .contact-section { padding: 60px 0; background: linear-gradient(180deg, #ffffff 0%, var(--bg-alt) 100%); }
+    .contact-section .section-header { margin-bottom: 32px; }
+    .contact-section .section-title { font-size: clamp(24px, 3vw, 32px); }
+@media (max-width: 900px) {
       .about-grid, .contact-grid, .brief-grid { grid-template-columns: 1fr; }
       .spec-grid { grid-template-columns: repeat(3, 1fr); }
       .cases-grid, .packages-grid { grid-template-columns: 1fr; }
@@ -416,7 +421,10 @@
     .privacy-close { margin-top: 16px; padding: 12px 28px; border-radius: 100px; border: none; background: linear-gradient(135deg, var(--accent) 0%, var(--green) 100%); color: #fff; font-weight: 600; cursor: pointer; font-family: var(--font); font-size: 14px; transition: all 0.3s; }
     .privacy-close:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,102,255,0.3); }
 
-    @media (max-width: 900px) {
+        .contact-section { padding: 60px 0; background: linear-gradient(180deg, #ffffff 0%, var(--bg-alt) 100%); }
+    .contact-section .section-header { margin-bottom: 32px; }
+    .contact-section .section-title { font-size: clamp(24px, 3vw, 32px); }
+@media (max-width: 900px) {
       .team-card { flex-direction: column; gap: 20px; align-items: center; text-align: center; }
       .team-avatars { justify-content: center; }
     }
@@ -481,7 +489,7 @@
           <p>Мы создали <strong>собственную методологию</strong>: короче, дешевле, точнее под цели компаний от 20 до 500 сотрудников. Без воды, только то, что работает.</p>
         </div>
         <div class="about-methods reveal">
-          <p><strong>Наша методология включает:</strong> построение карт процессов AS-IS / TO-BE, матрицу ответственности RACI, нормирование труда по нормам времени, расчёт оптимальной численности и цифровизацию наглядных показателей.</p>
+          <p><strong>Наша методология включает:</strong> построение карт процессов AS-IS (как есть) / TO-BE (как должно быть), матрицу ответственности RACI (Responsible — ответственный, Accountable — подотчётный, Consulted — консультируемый, Informed — информируемый), нормирование труда по нормам времени, расчёт оптимальной численности и цифровизацию наглядных показателей.</p>
         </div>
         <div class="about-stats">
           <div class="stat-card reveal reveal-delay-1">
@@ -522,7 +530,39 @@
     </div>
   </section>
 
-  <section class="process" id="process">
+  <section class="spec" id="spec">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-label">Специализация</div>
+        <h2 class="section-title">Что делаем <span class="gradient-text">лучше всего</span></h2>
+      </div>
+      <div class="spec-grid">
+        <div class="spec-card reveal">
+          <div class="spec-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="20" cy="20" r="8"/><path d="M32 32l8 8"/><path d="M26 20c0 3.3-2.7 6-6 6s-6-2.7-6-6 2.7-6 6-6"/></svg>
+          </div>
+          <h3>Аудит персонала</h3>
+          <p>Проверяем соответствие штата задачам. Выявляем избыточность и дефицит кадров.</p>
+        </div>
+        <div class="spec-card reveal reveal-delay-1">
+          <div class="spec-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="14" height="14" rx="2"/><rect x="28" y="6" width="14" height="14" rx="2"/><rect x="6" y="28" width="14" height="14" rx="2"/><rect x="28" y="28" width="14" height="14" rx="2"/><path d="M13 20v8M20 13h8M28 20v8M20 35h8"/></svg>
+          </div>
+          <h3>Модели численности</h3>
+          <p>Рассчитываем оптимальное количество сотрудников по производственной потребности.</p>
+        </div>
+        <div class="spec-card reveal reveal-delay-2">
+          <div class="spec-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M24 4v8"/><path d="M24 36v8"/><path d="M4 24h8"/><path d="M36 24h8"/><circle cx="24" cy="24" r="6"/><path d="M12 12l5.6 5.6"/><path d="M30.4 30.4L36 36"/><path d="M12 36l5.6-5.6"/><path d="M30.4 17.6L36 12"/></svg>
+          </div>
+          <h3>Реинжиниринг процессов</h3>
+          <p>Перестраиваем бизнес-процессы с нуля: убираем потери, внедряем автоматизацию.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<section class="process" id="process">
     <div class="process-blob"></div>
     <div class="container">
       <div class="section-header reveal">
@@ -569,37 +609,9 @@
     </div>
   </section>
 
-  <section class="spec" id="spec">
-    <div class="container">
-      <div class="section-header reveal">
-        <div class="section-label">Специализация</div>
-        <h2 class="section-title">Что делаем <span class="gradient-text">лучше всего</span></h2>
-      </div>
-      <div class="spec-grid">
-        <div class="spec-card reveal">
-          <div class="spec-icon">
-            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="20" cy="20" r="8"/><path d="M32 32l8 8"/><path d="M26 20c0 3.3-2.7 6-6 6s-6-2.7-6-6 2.7-6 6-6"/></svg>
-          </div>
-          <h3>Аудит персонала</h3>
-          <p>Проверяем соответствие штата задачам. Выявляем избыточность и дефицит кадров.</p>
-        </div>
-        <div class="spec-card reveal reveal-delay-1">
-          <div class="spec-icon">
-            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="14" height="14" rx="2"/><rect x="28" y="6" width="14" height="14" rx="2"/><rect x="6" y="28" width="14" height="14" rx="2"/><rect x="28" y="28" width="14" height="14" rx="2"/><path d="M13 20v8M20 13h8M28 20v8M20 35h8"/></svg>
-          </div>
-          <h3>Модели численности</h3>
-          <p>Рассчитываем оптимальное количество сотрудников по производственной потребности.</p>
-        </div>
-        <div class="spec-card reveal reveal-delay-2">
-          <div class="spec-icon">
-            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M24 4v8"/><path d="M24 36v8"/><path d="M4 24h8"/><path d="M36 24h8"/><circle cx="24" cy="24" r="6"/><path d="M12 12l5.6 5.6"/><path d="M30.4 30.4L36 36"/><path d="M12 36l5.6-5.6"/><path d="M30.4 17.6L36 12"/></svg>
-          </div>
-          <h3>Реинжиниринг процессов</h3>
-          <p>Перестраиваем бизнес-процессы с нуля: убираем потери, внедряем автоматизацию.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+
+
+  
 
   <section class="cases" id="cases">
     <div class="container">
@@ -641,37 +653,6 @@
     </div>
   </section>
 
-  <section class="industries" id="industries">
-    <div class="container">
-      <div class="section-header reveal">
-        <div class="section-label">Отрасли</div>
-        <h2 class="section-title">Решения для <span class="gradient-text">вашей отрасли</span></h2>
-      </div>
-      <div class="industries-grid">
-        <div class="industry-card reveal">
-          <h3>🏭 Металлургия</h3>
-          <p>Сокращение простоев печей, оптимизация загрузки оборудования и нормирование труда.</p>
-          <div class="ind-metric">−20–30% простоев</div>
-        </div>
-        <div class="industry-card reveal reveal-delay-1">
-          <h3>⛏ Горнодобыча</h3>
-          <p>Оптимизация численности, системы мотивации и производственного планирования.</p>
-          <div class="ind-metric">100% выполнение плана</div>
-        </div>
-        <div class="industry-card reveal reveal-delay-2">
-          <h3>⚙ Производство</h3>
-          <p>Реинжиниринг процессов, внедрение цифрового учёта и сокращение отчётности.</p>
-          <div class="ind-metric">−35% времени на отчётность</div>
-        </div>
-        <div class="industry-card reveal reveal-delay-3">
-          <h3>🚛 Логистика и склады</h3>
-          <p>Зонирование складов, регламенты приёмки и отгрузки, сокращение ошибок.</p>
-          <div class="ind-metric">−30% ошибок комплектации</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <section class="lead-magnet" id="leadmagnet">
     <div class="container">
       <div class="lead-magnet-inner">
@@ -679,7 +660,7 @@
           <div class="section-label">Бесплатный материал</div>
           <h2 class="section-title">Чек-лист: снижение простоев оборудования <span class="gradient-text">на 20–30%</span></h2>
           <p class="section-desc" style="margin-bottom: 24px;">5 проверенных шагов для операционных директоров и руководителей производства. От диагностики до внедрения — за 4 недели.</p>
-          <a href="Checklist.html" target="_blank" class="btn btn-accent">Получить чек-лист →</a>
+          <a href="Checklist.html" class="btn btn-accent">Получить чек-лист →</a>
         </div>
         <div class="lead-magnet-visual reveal reveal-delay-1">
           <div class="lead-magnet-icon">📋</div>
@@ -857,7 +838,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label>Удобное время для связи</label>
+            <label>Удобное время для связи <span style="color:var(--text-muted);font-weight:500;">(МСК)</span></label>
             <select name="contact_time">
               <option>Утро (9:00–12:00)</option>
               <option>День (12:00–17:00)</option>
@@ -890,11 +871,11 @@
     </div>
   </div>
 
-  <section class="contact" id="contact">
+  <section class="contact-section" id="contact">
     <div class="container">
-      <div class="section-header reveal">
+      <div class="section-header reveal" style="text-align: center; margin-bottom: 32px;">
         <div class="section-label">Контакты</div>
-        <h2 class="section-title">Свяжитесь с нами <span class="gradient-text">удобным способом</span></h2>
+        <h2 class="section-title" style="font-size: clamp(24px, 3vw, 32px);">Свяжитесь с нами <span class="gradient-text">удобным способом</span></h2>
       </div>
       <div class="contact-chips reveal">
         <a href="tel:+79931081105" class="contact-chip">
@@ -924,7 +905,7 @@
         <a href="#about">О нас</a>
         <a href="cases.html">Кейсы</a>
         <a href="#packages">Услуги</a>
-        <a href="Checklist.html" target="_blank">Чек-лист</a>
+        <a href="Checklist.html">Чек-лист</a>
         <a href="#contact">Контакты</a>
         <a href="#brief">Бриф</a>
         <a href="#" onclick="document.getElementById('privacyModal').classList.add('active'); return false;">Политика конфиденциальности</a>
@@ -981,7 +962,6 @@
       document.querySelectorAll('.package-card').forEach(c => c.classList.remove('selected'));
       document.querySelectorAll('.package-cta').forEach(c => c.classList.remove('selected'));
       btn.closest('.package-card').classList.add('selected');
-      btn.classList.add('selected');
       document.getElementById('selectedName').textContent = name;
       document.getElementById('selectedPrice').textContent = price;
       document.getElementById('selectedBar').classList.add('show');
@@ -1000,7 +980,6 @@
       selectedPackage = 'Коучинг / сопровождение';
       selectedPrice = 'от 60 000 ₽';
       document.querySelectorAll('.package-card').forEach(c => c.classList.remove('selected'));
-      document.querySelectorAll('.package-cta').forEach(c => c.classList.remove('selected'));
       document.getElementById('selectedName').textContent = 'Коучинг / сопровождение';
       document.getElementById('selectedPrice').textContent = 'от 60 000 ₽';
       document.getElementById('selectedBar').classList.add('show');
@@ -1082,5 +1061,18 @@
       setTimeout(() => t.classList.remove('show'), 2500);
     }
   </script>
+
+  <!-- Back to top -->
+  <a href="#" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;" title="Наверх" style="position:fixed;bottom:28px;right:28px;z-index:200;width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--green));color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 24px rgba(0,102,255,0.3);text-decoration:none;opacity:0;transform:translateY(20px);transition:all .4s cubic-bezier(0.22,1,0.36,1);font-size:22px;">↑</a>
+  <script>
+    (function(){
+      var btn=document.getElementById('backToTop');
+      window.addEventListener('scroll',function(){
+        if(window.scrollY>600){btn.style.opacity='1';btn.style.transform='translateY(0)'}
+        else{btn.style.opacity='0';btn.style.transform='translateY(20px)'}
+      });
+    })();
+  </script>
+
 </body>
 </html>
