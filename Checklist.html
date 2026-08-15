@@ -139,6 +139,7 @@
         <div class="lm-sub">Бесплатный чек-лист</div>
         <h2>Оставьте контакт — получите чек-лист</h2>
         <p>Начните решать проблемы уже сейчас! Мы вышлем материал и сможем проконсультировать по вашей ситуации.</p>
+        <p style="font-size:13px;color:var(--text-muted);margin-bottom:12px;text-align:center;">Укажите телефон или email — мы свяжемся с вами удобным способом</p>
         <form id="lmForm" onsubmit="sendLead(event)">
           <div class="lm-field">
             <label>Имя <span style="color:var(--accent)">*</span></label>
@@ -146,11 +147,11 @@
           </div>
           <div class="lm-field">
             <label>Телефон <span style="color:var(--accent)">*</span></label>
-            <input type="tel" name="phone" placeholder="+7 (999) 000-00-00" required id="lmPhone">
+            <input type="tel" name="phone" placeholder="+7 (999) 000-00-00" id="lmPhone">
           </div>
           <div class="lm-field">
             <label>Email</label>
-            <input type="email" name="email" placeholder="ivan@company.ru">
+            <input type="email" name="email" placeholder="ivan@company.ru" id="lmEmail">
           </div>
           <button type="submit" class="lm-btn" id="lmBtn">Получить чек-лист</button>
         </form>
@@ -404,11 +405,11 @@
 <!-- Contacts bottom -->
   <section class="contact-section" style="padding:40px 0 20px;text-align:center;border-top:1px solid var(--border);background:linear-gradient(180deg,var(--bg-alt) 0%,#ffffff 100%);">
     <div class="container">
-      <div class="section-header" style="text-align:center;margin-bottom:24px;">
-        <div class="section-label">Контакты</div>
-        <h2 class="section-title" style="font-size:clamp(20px,3vw,28px);">Свяжитесь с нами <span class="gradient-text">удобным способом</span></h2>
+      <div style="text-align:center;margin-bottom:24px;">
+        <div class="section-label" style="justify-content:center;">Контакты</div>
+        <h2 class="section-title" style="font-size:clamp(20px,3vw,28px);margin-top:12px;">Свяжитесь с нами <span class="gradient-text">удобным способом</span></h2>
       </div>
-      <div class="contact-chips" style="margin-bottom:16px;">
+      <div class="contact-chips" style="margin-bottom:16px;row-gap:14px;">
         <a href="tel:+79931081105" class="contact-chip">📞 +7 (993) 108-11-05</a>
         <a href="https://t.me/Kolesoeffect" target="_blank" class="contact-chip">✈️ Telegram</a>
         <a href="https://wa.me/qr/PSWP6W6S6FYYJ1" target="_blank" class="contact-chip">💬 WhatsApp</a>
@@ -472,6 +473,13 @@
       e.preventDefault();
       const btn = document.getElementById('lmBtn');
       const form = e.target;
+      const phone = document.getElementById('lmPhone').value.trim();
+      const email = document.getElementById('lmEmail').value.trim();
+      if (!phone && !email) {
+        alert('Пожалуйста, укажите телефон или email, чтобы мы могли с вами связаться.');
+        document.getElementById('lmPhone').focus();
+        return;
+      }
 
       // Сразу показываем успех — пользователь не ждёт
       localStorage.setItem(LM_STORAGE_KEY, '1');
