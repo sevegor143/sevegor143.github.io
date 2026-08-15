@@ -73,7 +73,6 @@
     .btn-accent:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,102,255,0.4); }
     .btn-secondary { background: #fff; color: var(--primary); border: 1.5px solid var(--border); margin-left: 12px; }
     .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
-    .contact-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 20px; }
     .contact-chip { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 100px; background: #fff; border: 1.5px solid var(--border); color: var(--primary); font-size: 13px; font-weight: 600; text-decoration: none; transition: all 0.3s; }
     .contact-chip:hover { border-color: var(--accent); color: var(--accent); }
 
@@ -105,14 +104,18 @@
         .contact-section { padding: 60px 0; background: linear-gradient(180deg, #ffffff 0%, var(--bg-alt) 100%); }
     .contact-section .section-header { margin-bottom: 32px; }
     .contact-section .section-title { font-size: clamp(24px, 3vw, 32px); }
-@media print {
-      .progress-wrap, .btn { display: none !important; }
-      .nav-back { display: none !important; }
+    @media print {
+      @page { margin: 1.5cm; size: auto; }
+      .progress-wrap, .btn, .lm-overlay, .completion-banner { display: none !important; }
+      .nav, .nav-back { display: none !important; }
       .check-item { break-inside: avoid; page-break-inside: avoid; }
-      body { background: #fff; }
-      .header { padding: 30px 0; }
-      .completion-banner, .completion-banner * { display: none !important; }
-      .contact-row-print { display: flex !important; }
+      .section { break-inside: avoid; page-break-inside: avoid; }
+      .tip { break-inside: avoid; page-break-inside: avoid; }
+      body { background: #fff; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .header { padding: 20px 0; }
+      .content { padding: 20px 0; }
+      .contact-section { padding: 30px 0; background: #fff !important; }
+      .contact-chip { box-shadow: none !important; border-color: #ccc !important; }
     }
     @media (max-width: 600px) {
       .header { padding: 40px 0 30px; }
@@ -380,6 +383,7 @@
         <a href="tel:+79931081105" class="contact-chip">📞 +7 (993) 108-11-05</a>
         <a href="https://t.me/Kolesoeffect" target="_blank" class="contact-chip">✈️ Telegram</a>
         <a href="https://wa.me/qr/PSWP6W6S6FYYJ1" target="_blank" class="contact-chip">💬 WhatsApp</a>
+        <a href="mailto:koleso.effectivnosti@gmail.com" class="contact-chip">✉️ Email</a>
       </div>
       <button class="btn btn-accent" onclick="document.getElementById('completionBanner').style.display='none'" style="padding:12px 28px;font-size:14px;">Продолжить</button>
     </div>
@@ -393,14 +397,7 @@
         <a href="index.html#brief" class="btn btn-accent">Заполнить бриф на диагностику</a>
         <button class="btn btn-secondary" onclick="window.print()">🖨 Сохранить как PDF</button>
       </div>
-      <div class="contact-row">
-        <a href="tel:+79931081105" class="contact-chip">📞 +7 (993) 108-11-05</a>
-        <a href="https://t.me/Kolesoeffect" target="_blank" class="contact-chip">✈️ Telegram</a>
-        <a href="https://wa.me/qr/PSWP6W6S6FYYJ1" target="_blank" class="contact-chip">💬 WhatsApp</a>
-        <a href="https://max.ru/u/f9LHodD0cOJc0DwUaYO1NrdVttbKM-m_C4Ex8QP2gFRYVKvgSt3wlW9aS20" target="_blank" class="contact-chip">💻 MAX</a>
-      </div>
-    </div>
-  </section>
+      </section>
 
   <!-- Contacts bottom -->
   <section class="contact-section" style="padding:40px 0 20px;text-align:center;border-top:1px solid var(--border);background:linear-gradient(180deg,var(--bg-alt) 0%,#ffffff 100%);">
@@ -414,6 +411,7 @@
         <a href="https://t.me/Kolesoeffect" target="_blank" class="contact-chip">✈️ Telegram</a>
         <a href="https://wa.me/qr/PSWP6W6S6FYYJ1" target="_blank" class="contact-chip">💬 WhatsApp</a>
         <a href="https://max.ru/u/f9LHodD0cOJc0DwUaYO1NrdVttbKM-m_C4Ex8QP2gFRYVKvgSt3wlW9aS20" target="_blank" class="contact-chip">💻 MAX</a>
+        <a href="mailto:koleso.effectivnosti@gmail.com" class="contact-chip">✉️ Email</a>
       </div>
     </div>
   </section>
