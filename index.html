@@ -1013,8 +1013,6 @@
       e.target.value = s;
     });
 
-    
-    }
 
     function showToast(msg) {
       const t = document.getElementById('toast');
@@ -1058,14 +1056,14 @@
       catch(e) { showToast('Не удалось скопировать'); }
       document.body.removeChild(ta);
     }
+  <script>
+    if (location.search.indexOf('sent=1') !== -1) {
+      var formEl = document.querySelector('.brief-form');
+      var fallbackEl = document.getElementById('briefFallback');
+      if (formEl) formEl.style.display = 'none';
+      if (fallbackEl) fallbackEl.style.display = 'block';
+      history.replaceState(null, null, location.pathname + location.hash);
+    }
   </script>
-// Показываем "Бриф отправлен!" если вернулись с ?sent=1
-if (location.search.indexOf('sent=1') !== -1) {
-    var formEl = document.querySelector('.brief-form');
-    var fallbackEl = document.getElementById('briefFallback');
-    if (formEl) formEl.style.display = 'none';
-    if (fallbackEl) fallbackEl.style.display = 'block';
-    history.replaceState(null, null, location.pathname + location.hash);
-}
 </body>
 </html>

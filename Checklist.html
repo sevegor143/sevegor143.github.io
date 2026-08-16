@@ -428,32 +428,30 @@
   </footer>
 
   <script>
-    function toggleCheck(el) {
-      function toggleCheck(el) {
-  el.classList.toggle('done');
-  saveProgress();
-  updateProgress();
-}
+        function toggleCheck(el) {
+      el.classList.toggle('done');
+      saveProgress();
+      updateProgress();
+    }
 
-function saveProgress() {
-  const done = [];
-  document.querySelectorAll('.check-item').forEach((item, i) => {
-    if (item.classList.contains('done')) done.push(i);
-  });
-  localStorage.setItem('checklist_progress', JSON.stringify(done));
-}
+    function saveProgress() {
+      const done = [];
+      document.querySelectorAll('.check-item').forEach((item, i) => {
+        if (item.classList.contains('done')) done.push(i);
+      });
+      localStorage.setItem('checklist_progress', JSON.stringify(done));
+    }
 
-function loadProgress() {
-  const saved = localStorage.getItem('checklist_progress');
-  if (!saved) return;
-  try {
-    const done = JSON.parse(saved);
-    document.querySelectorAll('.check-item').forEach((item, i) => {
-      if (done.includes(i)) item.classList.add('done');
-    });
-    updateProgress();
-  } catch(e) {}
-}
+    function loadProgress() {
+      const saved = localStorage.getItem('checklist_progress');
+      if (!saved) return;
+      try {
+        const done = JSON.parse(saved);
+        document.querySelectorAll('.check-item').forEach((item, i) => {
+          if (done.includes(i)) item.classList.add('done');
+        });
+        updateProgress();
+      } catch(e) {}
     }
     function updateProgress() {
       const total = document.querySelectorAll('.check-item').length;
@@ -503,9 +501,11 @@ function loadProgress() {
       document.getElementById('lmOverlay').classList.add('hidden');
     }
   
-    function copyEmail(el) { function showToast(msg) {
-  alert(msg);
-}
+        function showToast(msg) {
+      alert(msg);
+    }
+
+    function copyEmail(el) {
       const email = 'koleso.effectivnosti@gmail.com';
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(email).then(function() {
