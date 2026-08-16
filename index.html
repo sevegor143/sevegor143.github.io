@@ -1044,7 +1044,7 @@
       }
       return false;
     }
-    function fallbackCopy(text) {
+        function fallbackCopy(text) {
       const ta = document.createElement('textarea');
       ta.value = text;
       ta.style.position = 'fixed';
@@ -1055,6 +1055,7 @@
       catch(e) { showToast('Не удалось скопировать'); }
       document.body.removeChild(ta);
     }
+  </script>
   <script>
     if (location.search.indexOf('sent=1') !== -1) {
       var formEl = document.querySelector('.brief-form');
