@@ -36,6 +36,10 @@
     .reveal-delay-1 { transition-delay: 0.1s; }
     .reveal-delay-2 { transition-delay: 0.2s; }
     .reveal-delay-3 { transition-delay: 0.3s; }
+@media (prefers-reduced-motion: reduce), (scripting: none) 
+{
+  .reveal { opacity: 1 !important; transform: none !important; }
+}
 
     .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(255,255,255,0.85); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(227,232,238,0.6); }
     .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 68px; }
@@ -181,6 +185,11 @@
       </div>
 
       <div class="cases-grid" id="casesGrid"></div>
+<noscript>
+  <p style="text-align:center;padding:40px;color:var(--text-secondary);">
+    Для просмотра кейсов включите JavaScript или перейдите на <a href="index.html">главную страницу</a>.
+  </p>
+</noscript>
     </div>
   </section>
 
@@ -195,7 +204,7 @@
         <a href="https://t.me/Kolesoeffect" target="_blank" class="contact-chip">✈️ Telegram</a>
         <a href="https://wa.me/qr/PSWP6W6S6FYYJ1" target="_blank" class="contact-chip">💬 WhatsApp</a>
         <a href="https://max.ru/u/f9LHodD0cOJc0DwUaYO1NrdVttbKM-m_C4Ex8QP2gFRYVKvgSt3wlW9aS20" target="_blank" class="contact-chip">💻 MAX</a>
-        <a href="mailto:koleso.effectivnosti@gmail.com" class="contact-chip">✉️ koleso.effectivnosti@gmail.com</a>
+        <a href="#" onclick="return copyEmail(this)" class="contact-chip">✉️ koleso.effectivnosti@gmail.com</a>
       </div>
     </div>
   </section>
@@ -388,5 +397,31 @@
       <button class="privacy-close" onclick="document.getElementById('privacyModal').classList.remove('active')">Закрыть</button>
     </div>
   </div>
+<script>
+    function copyEmail(el) {
+      const email = 'koleso.effectivnosti@gmail.com';
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(email).then(function() {
+          alert('Почта скопирована: ' + email);
+        }).catch(function() {
+          fallbackCopy(email);
+        });
+      } else {
+        fallbackCopy(email);
+      }
+      return false;
+    }
+    function fallbackCopy(text) {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); alert('Почта скопирована: ' + text); }
+      catch(e) { alert('Не удалось скопировать'); }
+      document.body.removeChild(ta);
+    }
+  </script>
 </body>
 </html>

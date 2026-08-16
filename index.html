@@ -40,6 +40,10 @@
     .reveal-delay-1 { transition-delay: 0.1s; }
     .reveal-delay-2 { transition-delay: 0.2s; }
     .reveal-delay-3 { transition-delay: 0.3s; }
+@media (prefers-reduced-motion: reduce), (scripting: none) 
+{
+  .reveal { opacity: 1 !important; transform: none !important; }
+}
 
     /* Nav */
     .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(255,255,255,0.85); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(227,232,238,0.6); }
@@ -53,7 +57,7 @@
     .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(0,102,255,0.35); }
 
     /* Hero */
-    .hero { padding: 160px 0 140px; position: relative; overflow: hidden; background: linear-gradient(180deg, rgba(240,247,255,0.92) 0%, rgba(230,247,244,0.88) 40%, rgba(255,255,255,0.95) 100%), url('https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?q=80&w=2000&auto=format&fit=crop') center/cover no-repeat; }
+    .hero { background-color: #f0f7ff; padding: 160px 0 140px; position: relative; overflow: hidden; background: linear-gradient(180deg, rgba(240,247,255,0.92) 0%, rgba(230,247,244,0.88) 40%, rgba(255,255,255,0.95) 100%), url('https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?q=80&w=2000&auto=format&fit=crop') center/cover no-repeat; }
     .hero-blob { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.45; pointer-events: none; }
     .hero-blob-1 { width: 500px; height: 500px; background: radial-gradient(circle, var(--accent-light) 0%, transparent 70%); top: -100px; right: -100px; }
     .hero-blob-2 { width: 400px; height: 400px; background: radial-gradient(circle, var(--green-light) 0%, transparent 70%); bottom: -50px; left: -80px; opacity: 0.3; }
@@ -495,15 +499,15 @@
         </div>
         <div class="about-stats">
           <div class="stat-card reveal reveal-delay-1">
-            <div class="num" data-target="5">0</div>
+            <div class="num" data-target="5">5</div>
             <div class="label">лет опыта на крупных предприятиях</div>
           </div>
           <div class="stat-card reveal reveal-delay-2">
-            <div class="num" data-target="147">0</div>
+            <div class="num" data-target="147">147</div>
             <div class="label">процессов оптимизировано</div>
           </div>
           <div class="stat-card reveal reveal-delay-1">
-            <div class="num" data-target="6">0</div>
+            <div class="num" data-target="6">6</div>
             <div class="label">отраслей охвачено</div>
           </div>
         </div>
@@ -764,7 +768,8 @@
         <p class="section-desc">Ответьте на несколько вопросов — это поможет нам подготовиться к разговору и сразу предложить релевантное решение.</p>
       </div>
       <div class="brief-form-wrap reveal">
-        <form class="brief-form" onsubmit="sendBrief(event)">
+        <form class="brief-form" action="send.php" method="POST">
+  <input type="hidden" name="source" value="brief">
           <div class="brief-grid-2">
             <div class="form-group">
               <label>Имя и фамилия <span style="color:var(--accent)">*</span></label>
@@ -832,11 +837,11 @@
           <div class="form-group">
             <label>Какие услуги вас интересуют? (можно несколько)</label>
             <div class="checkbox-group">
-              <label class="checkbox-label"><input type="checkbox" name="services" value="Аудит персонала"> Аудит персонала</label>
-              <label class="checkbox-label"><input type="checkbox" name="services" value="Модели численности"> Модели численности</label>
-              <label class="checkbox-label"><input type="checkbox" name="services" value="Реинжиниринг процессов"> Реинжиниринг процессов</label>
-              <label class="checkbox-label"><input type="checkbox" name="services" value="Система мотивации"> Система мотивации</label>
-              <label class="checkbox-label"><input type="checkbox" name="services" value="Внедрение инструментов учёта"> Внедрение инструментов учёта</label>
+              <label class="checkbox-label"><input type="checkbox" name="services[]" value="Аудит персонала"> Аудит персонала</label>
+              <label class="checkbox-label"><input type="checkbox" name="services[]" value="Модели численности"> Модели численности</label>
+              <label class="checkbox-label"><input type="checkbox" name="services[]" value="Реинжиниринг процессов"> Реинжиниринг процессов</label>
+              <label class="checkbox-label"><input type="checkbox" name="services[]" value="Система мотивации"> Система мотивации</label>
+              <label class="checkbox-label"><input type="checkbox" name="services[]" value="Внедрение инструментов учёта"> Внедрение инструментов учёта</label>
             </div>
           </div>
           <div class="form-group">
@@ -884,7 +889,7 @@
         <a href="https://t.me/Kolesoeffect" target="_blank" class="contact-chip">✈️ Telegram</a>
         <a href="https://wa.me/qr/PSWP6W6S6FYYJ1" target="_blank" class="contact-chip">💬 WhatsApp</a>
         <a href="https://max.ru/u/f9LHodD0cOJc0DwUaYO1NrdVttbKM-m_C4Ex8QP2gFRYVKvgSt3wlW9aS20" target="_blank" class="contact-chip">💻 MAX</a>
-        <a href="mailto:koleso.effectivnosti@gmail.com" class="contact-chip">✉️ koleso.effectivnosti@gmail.com</a>
+        <a href="#" onclick="return copyEmail(this)" class="contact-chip">✉️ koleso.effectivnosti@gmail.com</a>
       </div>
     </div>
   </section>
@@ -986,7 +991,12 @@
     }
 
     // Formspree — письма приходят на почту
-    const FORMSPREE_URL = 'https://formspree.io/f/xbgrdvon';
+    // === НАСТРОЙКА WEB3FORMS ===
+    // 1. Зайдите на https://web3forms.com/
+    // 2. Введите ваш email (koleso.effectivnosti@gmail.com) и нажмите "Get Access Key"
+    // 3. Скопируйте ключ из письма и вставьте ниже:
+    const WEB3FORMS_KEY = 'ВАШ_ACCESS_KEY';  // замените на реальный ключ
+    // =================================
 
     // Маска телефона
     document.querySelector('input[name="phone"]').addEventListener('input', function(e) {
@@ -1003,54 +1013,7 @@
       e.target.value = s;
     });
 
-    function sendBrief(e) {
-      e.preventDefault();
-      const btn = document.getElementById('briefBtn');
-      const form = e.target;
-      const phone = document.getElementById('briefPhone').value.trim();
-      const email = document.getElementById('briefEmail').value.trim();
-      if (!phone && !email) {
-        showToast('Укажите телефон или email, чтобы мы могли с вами связаться.');
-        document.getElementById('briefPhone').focus();
-        return;
-      }
-
-      btn.disabled = true;
-      btn.innerHTML = '<span class="spinner"></span> Отправка...';
-
-      const formData = new FormData(form);
-      formData.append('_subject', 'Новый бриф с сайта — ' + (form.company.value || 'Без названия'));
-      if (form.email.value) formData.append('_replyto', form.email.value);
-
-      fetch(FORMSPREE_URL, {
-        method: 'POST',
-        headers: { 'Accept': 'application/json' },
-        body: formData
-      })
-      .then(async r => {
-        const data = await r.json();
-        if (r.ok) {
-          btn.innerHTML = 'Бриф отправлен ✓';
-          btn.classList.add('sent');
-          showToast('Бриф отправлен! Мы свяжемся с вами в течение дня.');
-          setTimeout(() => {
-            btn.innerHTML = 'Отправить бриф';
-            btn.classList.remove('sent');
-            btn.disabled = false;
-            form.reset();
-            form.style.display = 'none';
-            document.getElementById('briefFallback').style.display = 'block';
-          }, 1500);
-        } else {
-          throw new Error(data.error || 'Ошибка сервера');
-        }
-      })
-      .catch(err => {
-        console.error(err);
-        btn.innerHTML = 'Отправить бриф';
-        btn.disabled = false;
-        showToast('Не удалось отправить. Попробуйте ещё раз.');
-      });
+    
     }
 
     function showToast(msg) {
@@ -1071,7 +1034,38 @@
         else{btn.style.opacity='0';btn.style.transform='translateY(20px)'}
       });
     })();
+    function copyEmail(el) {
+      const email = 'koleso.effectivnosti@gmail.com';
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(email).then(function() {
+          showToast('Почта скопирована: ' + email);
+        }).catch(function() {
+          fallbackCopy(email);
+        });
+      } else {
+        fallbackCopy(email);
+      }
+      return false;
+    }
+    function fallbackCopy(text) {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); showToast('Почта скопирована: ' + text); }
+      catch(e) { showToast('Не удалось скопировать'); }
+      document.body.removeChild(ta);
+    }
   </script>
-
+// Показываем "Бриф отправлен!" если вернулись с ?sent=1
+if (location.search.indexOf('sent=1') !== -1) {
+    var formEl = document.querySelector('.brief-form');
+    var fallbackEl = document.getElementById('briefFallback');
+    if (formEl) formEl.style.display = 'none';
+    if (fallbackEl) fallbackEl.style.display = 'block';
+    history.replaceState(null, null, location.pathname + location.hash);
+}
 </body>
 </html>
