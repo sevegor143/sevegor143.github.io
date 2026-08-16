@@ -428,7 +428,7 @@
   </footer>
 
   <script>
-        function toggleCheck(el) {
+            function toggleCheck(el) {
       el.classList.toggle('done');
       saveProgress();
       updateProgress();
@@ -531,13 +531,15 @@
     }
 
   </script>
-// Показываем "Бриф отправлен!" если вернулись с ?sent=1
-if (location.search.indexOf('sent=1') !== -1) {
-    var formEl = document.querySelector('.brief-form');
-    var fallbackEl = document.getElementById('briefFallback');
-    if (formEl) formEl.style.display = 'none';
-    if (fallbackEl) fallbackEl.style.display = 'block';
-    history.replaceState(null, null, location.pathname + location.hash);
-}
+  <script>
+    // Показываем "Бриф отправлен!" если вернулись с ?sent=1
+    if (location.search.indexOf('sent=1') !== -1) {
+      var formEl = document.querySelector('.brief-form');
+      var fallbackEl = document.getElementById('briefFallback');
+      if (formEl) formEl.style.display = 'none';
+      if (fallbackEl) fallbackEl.style.display = 'block';
+      history.replaceState(null, null, location.pathname + location.hash);
+    }
+  </script>
 </body>
 </html>
