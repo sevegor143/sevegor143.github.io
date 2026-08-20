@@ -66,8 +66,15 @@
     .btn-accent:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,102,255,0.4); }
     .btn-secondary { background: #fff; color: var(--primary); border: 1.5px solid var(--border); margin-left: 12px; }
     .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
-    .contact-chip { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 100px; background: #fff; border: 1.5px solid var(--border); color: var(--primary); font-size: 13px; font-weight: 600; text-decoration: none; transition: all 0.3s; }
-    .contact-chip:hover { border-color: var(--accent); color: var(--accent); }
+    .contact-chip { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 100px; background: rgba(0,102,255,0.05); border: 1.5px solid rgba(0,102,255,0.12); color: var(--primary); font-size: 13px; font-weight: 600; text-decoration: none; transition: all 0.3s; }
+    .contact-chip:hover { background: rgba(0,102,255,0.1); border-color: rgba(0,102,255,0.25); color: var(--accent); }
+    .privacy-modal { display: none; position: fixed; inset: 0; z-index: 300; background: rgba(10,37,64,0.5); backdrop-filter: blur(4px); align-items: center; justify-content: center; padding: 24px; }
+    .privacy-modal.active { display: flex; }
+    .privacy-box { max-width: 600px; max-height: 80vh; overflow-y: auto; background: #fff; border-radius: var(--radius); padding: 32px; border: 1px solid var(--border); box-shadow: 0 20px 60px rgba(10,37,64,0.2); }
+    .privacy-box h3 { font-size: 20px; font-weight: 800; margin-bottom: 16px; color: var(--primary); }
+    .privacy-box p { font-size: 14px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 12px; }
+    .privacy-close { margin-top: 16px; padding: 12px 28px; border-radius: 100px; border: none; background: linear-gradient(135deg, var(--accent) 0%, var(--green) 100%); color: #fff; font-weight: 600; cursor: pointer; font-family: var(--font); font-size: 14px; transition: all 0.3s; }
+    .privacy-close:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,102,255,0.3); }
     .footer { padding: 30px 0; text-align: center; font-size: 13px; color: var(--text-muted); border-top: 1px solid var(--border); }
     .footer a { color: var(--accent); text-decoration: none; }
     .lm-overlay { position: fixed; inset: 0; z-index: 500; background: rgba(10,37,64,0.65); backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; padding: 24px; }
