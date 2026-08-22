@@ -34,7 +34,7 @@
     .nav-links a.active { color: var(--accent); background: rgba(0,102,255,0.08); font-weight: 600; }
     .nav-cta { padding: 10px 20px; border-radius: 100px; background: linear-gradient(135deg, var(--accent) 0%, var(--green) 100%); color: #fff; font-size: 13px; font-weight: 600; text-decoration: none; border: none; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 16px rgba(0,102,255,0.25); }
     .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(0,102,255,0.35); }
-    .burger { display: none !important; font-size: 24px; background: none; border: none; cursor: pointer; color: var(--primary); padding: 8px; }
+    .burger { display: none; font-size: 24px; background: none; border: none; cursor: pointer; color: var(--primary); padding: 8px; }
     .hero { padding: 140px 0 60px; position: relative; overflow: hidden; background: linear-gradient(180deg, #f0f7ff 0%, #e6f7f4 40%, #ffffff 100%); }
     .hero-blob { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.45; pointer-events: none; }
     .hero-blob-1 { width: 500px; height: 500px; background: radial-gradient(circle, var(--accent-light) 0%, transparent 70%); top: -100px; right: -100px; }
@@ -125,7 +125,7 @@
 @media (max-width: 900px) {
       .cases-grid { grid-template-columns: repeat(2, 1fr); }
       .nav-links { display: none; }
-      .burger { display: block !important; }
+      .burger { display: block; }
     }
     @media (max-width: 600px) {
       .cases-grid { grid-template-columns: 1fr; }
@@ -133,10 +133,17 @@
       .hero h1 { font-size: 28px; }
       .filters { gap: 6px; }
       .filter-btn { padding: 6px 14px; font-size: 13px; }
-      .footer-inner { flex-direction: column; gap: 12px; text-align: center; }
+      .footer-inner { flex-direction: column; gap: 16px; text-align: center; }
+      .footer-links { flex-wrap: wrap; justify-content: center; gap: 10px 16px; }
+      .footer-links a { font-size: 12px; }
       .case-card { padding: 24px; }
       .cases-section { padding: 40px 0 60px; }
-    }
+    
+      .contact-chips { gap: 10px; justify-content: center; }
+      .contact-chips .contact-chip { width: 100%; max-width: 320px; justify-content: center; font-size: 13px; padding: 12px 20px; }
+      .contact-chips .contact-icon { margin: 0 6px; width: 48px; height: 48px; }
+      .contact-chips .contact-icon img { width: 28px; height: 28px; }
+      .contact-chips .contact-icon svg { width: 20px; height: 20px; }}
   </style>
 </head>
 <body>
