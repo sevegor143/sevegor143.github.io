@@ -55,6 +55,7 @@
     .nav-links a:hover { color: var(--accent); background: rgba(0,102,255,0.06); }
     .nav-cta { padding: 10px 20px; border-radius: 100px; background: linear-gradient(135deg, var(--accent) 0%, var(--green) 100%); color: #fff; font-size: 13px; font-weight: 600; text-decoration: none; border: none; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 16px rgba(0,102,255,0.25); }
     .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(0,102,255,0.35); }
+    .burger { display: none; font-size: 24px; background: none; border: none; cursor: pointer; color: var(--primary); padding: 8px; }
 
     /* Hero */
     .hero { background-color: #f0f7ff; padding: 120px 0 80px; position: relative; overflow: hidden; background: linear-gradient(180deg, rgba(240,247,255,0.92) 0%, rgba(230,247,244,0.88) 40%, rgba(255,255,255,0.95) 100%), url('https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?q=80&w=2000&auto=format&fit=crop') center/cover no-repeat; }
@@ -298,6 +299,7 @@
       .step { text-align: left; display: flex; align-items: flex-start; gap: 16px; }
       .step-num { margin: 0; flex-shrink: 0; }
       .nav-links { display: none; }
+      .burger { display: block; }
       .coaching-card { flex-direction: column; gap: 24px; }
       .coaching-price { text-align: left; }
       .brief-iframe { height: 600px; }
@@ -309,6 +311,7 @@
       .hero-label { margin-bottom: 8px; font-size: 11px; }
       .hero-metrics { gap: 8px; margin-top: 12px; }
       .hm-item { font-size: 11px; padding: 6px 12px; }
+      .btn-outline { background: rgba(255,255,255,0.85); backdrop-filter: blur(8px); }
       .about-stats { grid-template-columns: 1fr; }
       .spec-grid { grid-template-columns: 1fr; }
       .form-row { grid-template-columns: 1fr; }
