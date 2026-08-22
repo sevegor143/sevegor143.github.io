@@ -55,13 +55,7 @@
     .nav-links a:hover { color: var(--accent); background: rgba(0,102,255,0.06); }
     .nav-cta { padding: 10px 20px; border-radius: 100px; background: linear-gradient(135deg, var(--accent) 0%, var(--green) 100%); color: #fff; font-size: 13px; font-weight: 600; text-decoration: none; border: none; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 16px rgba(0,102,255,0.25); }
     .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(0,102,255,0.35); }
-    .burger { display: none; background: none; border: none; cursor: pointer; color: var(--primary); padding: 8px; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; touch-action: manipulation; align-items: center; justify-content: center; width: 44px; height: 44px; }
-
-    /* Mobile nav */
-    .mobile-nav { display: none; position: fixed; top: 68px; left: 0; right: 0; background: rgba(255,255,255,0.98); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); padding: 16px 24px; z-index: 99; flex-direction: column; gap: 8px; }
-    .mobile-nav a { text-decoration: none; color: var(--text-secondary); font-size: 15px; font-weight: 500; padding: 10px 14px; border-radius: var(--radius-sm); transition: all 0.2s; }
-    .mobile-nav a:hover { color: var(--accent); background: rgba(0,102,255,0.06); }
-    .mobile-nav.show { display: flex; }
+    .burger { display: none; font-size: 24px; background: none; border: none; cursor: pointer; color: var(--primary); padding: 8px; }
 
     /* Hero */
     .hero { background-color: #f0f7ff; padding: 120px 0 80px; position: relative; overflow: hidden; background: linear-gradient(180deg, rgba(240,247,255,0.92) 0%, rgba(230,247,244,0.88) 40%, rgba(255,255,255,0.95) 100%), url('https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?q=80&w=2000&auto=format&fit=crop') center/cover no-repeat; }
@@ -95,7 +89,10 @@
     /* About */
     .about { padding: 100px 0; position: relative; }
     .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+    .about-left { display: flex; flex-direction: column; gap: 24px; }
+    .about-right { display: flex; flex-direction: column; }
     .about-text p { font-size: 16px; color: var(--text-secondary); margin-bottom: 16px; line-height: 1.7; }
+    .about-text p:last-child { margin-bottom: 0; }
     .about-text strong { color: var(--primary); font-weight: 600; }
     .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
     .stat-card { padding: 28px; background: linear-gradient(135deg, var(--bg-alt) 0%, #ffffff 100%); border-radius: var(--radius); border: 1px solid var(--border); transition: all 0.3s; position: relative; overflow: hidden; }
@@ -201,14 +198,6 @@
     .form-group label { display: block; font-size: 13px; font-weight: 700; color: var(--primary); margin-bottom: 6px; }
     .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 12px 16px; border-radius: var(--radius-sm); border: 1.5px solid var(--border); background: #ffffff; color: var(--text); font-size: 15px; font-family: var(--font); outline: none; transition: all 0.2s; }
     .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(0,102,255,0.1); }
-    .form-group select {
-      appearance: none;
-      -webkit-appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23425466' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 24px center;
-      padding-right: 46px;
-    }
     .form-group textarea { resize: vertical; min-height: 110px; }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     .submit-btn { width: 100%; padding: 14px; border-radius: 100px; border: none; background: linear-gradient(135deg, var(--accent) 0%, #0088cc 50%, var(--green) 100%); color: #fff; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.3s; font-family: var(--font); box-shadow: 0 4px 16px rgba(0,102,255,0.25); }
@@ -306,6 +295,7 @@
     .contact-icon img { width: 32px; height: 32px; object-fit: cover; border-radius: 50%; }
 @media (max-width: 900px) {
       .about-grid, .contact-grid, .brief-grid { grid-template-columns: 1fr; }
+      .about-left, .about-right { width: 100%; }
       .spec-grid { grid-template-columns: repeat(3, 1fr); }
       .cases-grid, .packages-grid { grid-template-columns: 1fr; }
       .process-steps { flex-direction: column; gap: 32px; }
@@ -313,12 +303,12 @@
       .step { text-align: left; display: flex; align-items: flex-start; gap: 16px; }
       .step-num { margin: 0; flex-shrink: 0; }
       .nav-links { display: none; }
+      .burger { display: block; }
       .coaching-card { flex-direction: column; gap: 24px; }
       .coaching-price { text-align: left; }
       .brief-iframe { height: 600px; }
     }
     @media (max-width: 600px) {
-      .burger { display: flex !important; }
       .hero { padding: 100px 0 50px; }
       .hero h1 { font-size: 24px; line-height: 1.1; }
       .hero p { font-size: 14px; }
@@ -538,7 +528,7 @@
         <a href="#packages">Пакеты</a>
         <a href="#contact">Контакты</a>
       </div>
-      <button class="burger" onclick="toggleMobileNav()" aria-label="Меню"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+      <button class="burger" onclick="toggleMobileNav()" aria-label="Меню">☰</button>
       <a href="#brief" class="nav-cta" id="desktopCta">Заполнить бриф</a>
     </div>
   </nav>
@@ -581,25 +571,29 @@
         <p class="section-desc">Мы взяли лучшее из методологий крупных консалтинговых компаний, адаптировали под задачи малого и среднего бизнеса и убрали всё лишнее.</p>
       </div>
       <div class="about-grid">
-        <div class="about-text reveal">
-          <p>За <strong>5+ лет</strong> работы в металлургии, горнодобыче и обработке цветных металлов мы поняли: крупные консалтеры не всегда доступны малому и среднему бизнесу, а их решения — избыточны.</p>
-          <p>Мы создали <strong>собственную методологию</strong>: короче, дешевле, точнее под цели компаний от 20 до 500 сотрудников. Без воды, только то, что работает.</p>
-        </div>
-        <div class="about-methods reveal">
-          <p><strong>Наша методология включает:</strong> построение карт процессов AS-IS (как есть) / TO-BE (как должно быть), матрицу ответственности RACI (Responsible — ответственный, Accountable — подотчётный, Consulted — консультируемый, Informed — информируемый), нормирование труда по нормам времени, расчёт оптимальной численности и цифровизацию наглядных показателей.</p>
-        </div>
-        <div class="about-stats">
-          <div class="stat-card reveal reveal-delay-1">
-            <div class="num" data-target="5">5</div>
-            <div class="label">лет опыта на крупных предприятиях</div>
+        <div class="about-left">
+          <div class="about-text reveal">
+            <p>За <strong>5+ лет</strong> работы в металлургии, горнодобыче и обработке цветных металлов мы поняли: крупные консалтеры не всегда доступны малому и среднему бизнесу, а их решения — избыточны.</p>
+            <p>Мы создали <strong>собственную методологию</strong>: короче, дешевле, точнее под цели компаний от 20 до 500 сотрудников. Без воды, только то, что работает.</p>
           </div>
-          <div class="stat-card reveal reveal-delay-2">
-            <div class="num" data-target="147">147</div>
-            <div class="label">процессов оптимизировано</div>
+          <div class="about-methods reveal">
+            <p><strong>Наша методология включает:</strong> построение карт процессов AS-IS (как есть) / TO-BE (как должно быть), матрицу ответственности RACI (Responsible — ответственный, Accountable — подотчётный, Consulted — консультируемый, Informed — информируемый), нормирование труда по нормам времени, расчёт оптимальной численности и цифровизацию наглядных показателей.</p>
           </div>
-          <div class="stat-card reveal reveal-delay-1">
-            <div class="num" data-target="6">6</div>
-            <div class="label">отраслей охвачено</div>
+        </div>
+        <div class="about-right">
+          <div class="about-stats">
+            <div class="stat-card reveal reveal-delay-1">
+              <div class="num" data-target="5">5</div>
+              <div class="label">лет опыта на крупных предприятиях</div>
+            </div>
+            <div class="stat-card reveal reveal-delay-2">
+              <div class="num" data-target="147">147</div>
+              <div class="label">процессов оптимизировано</div>
+            </div>
+            <div class="stat-card reveal reveal-delay-1">
+              <div class="num" data-target="6">6</div>
+              <div class="label">отраслей охвачено</div>
+            </div>
           </div>
         </div>
       </div>

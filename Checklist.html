@@ -147,6 +147,138 @@
       .contact-chips .contact-icon img { width: 28px; height: 28px; }
       .contact-chips .contact-icon svg { width: 20px; height: 20px; }}
   </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://ВАШ_ДОМЕН/#organization",
+      "name": "Колесо эффективности",
+      "url": "https://ВАШ_ДОМЕН/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://ВАШ_ДОМЕН/favicon.svg"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+7-993-108-11-05",
+        "contactType": "sales",
+        "areaServed": "RU",
+        "availableLanguage": ["Russian"]
+      },
+      "sameAs": [
+        "https://t.me/Kolesoeffect"
+      ]
+    },
+    {
+      "@type": "HowTo",
+      "@id": "https://ВАШ_ДОМЕН/Checklist.html#howto",
+      "name": "5 шагов для снижения простоев оборудования на 20–30%",
+      "description": "Практический гид для операционных директоров и руководителей производства. От диагностики до внедрения — за 4 недели.",
+      "totalTime": "P4W",
+      "estimatedCost": {
+        "@type": "MonetaryAmount",
+        "currency": "RUB",
+        "value": "0"
+      },
+      "supply": [
+        {
+          "@type": "HowToSupply",
+          "name": "Данные о загрузке оборудования"
+        },
+        {
+          "@type": "HowToSupply",
+          "name": "Хронометражные наблюдения"
+        }
+      ],
+      "tool": [
+        {
+          "@type": "HowToTool",
+          "name": "Excel или цифровая доска"
+        },
+        {
+          "@type": "HowToTool",
+          "name": "Telegram-чат для оперативного оповещения"
+        }
+      ],
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "Диагностика: найдите скрытые потери",
+          "text": "Рассчитайте коэффициент использования оборудования (КИО), зафиксируйте среднее время переналадки, проведите хронометраж рабочего дня.",
+          "url": "https://ВАШ_ДОМЕН/Checklist.html#step1"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "Организация рабочего места: уберите лишние движения",
+          "text": "Внедрите систему 5S на пилотном участке, разместите оснастку в зоне досягаемости, введите стандартную маркировку складских остатков.",
+          "url": "https://ВАШ_ДОМЕН/Checklist.html#step2"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "Планирование: устраните простои между заданиями",
+          "text": "Составьте визуальный план-график загрузки станков, введите правило подготовки за 15 минут, установите лимит времени на решение нештатных ситуаций.",
+          "url": "https://ВАШ_ДОМЕН/Checklist.html#step3"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 4,
+          "name": "Персонал: обучение и мотивация",
+          "text": "Проведите инструктаж по регламенту переналадки, введите систему мотивации за сокращение времени переналадки.",
+          "url": "https://ВАШ_ДОМЕН/Checklist.html#step4"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 5,
+          "name": "Технологии: цифровой учёт без сложных внедрений",
+          "text": "Протестируйте бесплатный инструмент учёта заданий, создайте общий чат для оперативного оповещения, настройте форму для сбора предложений по улучшениям.",
+          "url": "https://ВАШ_ДОМЕН/Checklist.html#step5"
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://ВАШ_ДОМЕН/Checklist.html#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Главная",
+          "item": "https://ВАШ_ДОМЕН/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Чек-лист",
+          "item": "https://ВАШ_ДОМЕН/Checklist.html"
+        }
+      ]
+    }
+  ]
+}
+</script>
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript" >
+   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+   m[i].l=1*new Date();
+   for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+   k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+   ym(YA_COUNTER_ID, "init", {
+        clickmap:true,
+        trackLinks:true,
+        accurateTrackBounce:true,
+        webvisor:true,
+        ecommerce:"dataLayer"
+   });
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/YA_COUNTER_ID" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
 </head>
 <body>
   <div class="lm-overlay" id="lmOverlay">
@@ -526,5 +658,67 @@
       document.body.removeChild(ta);
     }
   </script>
+
+<!-- Yandex Metrika Goals -->
+<script>
+(function() {
+  var cid = YA_COUNTER_ID; // ЗАМЕНИТЕ на номер вашего счётчика!
+  function goal(name) { if (window.ym) ym(cid, 'reachGoal', name); }
+
+  // 1. Отправка брифа
+  var briefForm = document.querySelector('.brief-form');
+  if (briefForm) {
+    briefForm.addEventListener('submit', function() { goal('submit_brief'); });
+  }
+
+  // 2. Клик по телефону
+  document.querySelectorAll('a[href^="tel:"]').forEach(function(el) {
+    el.addEventListener('click', function() { goal('click_phone'); });
+  });
+
+  // 3. Клик по Telegram
+  document.querySelectorAll('a[href*="t.me"]').forEach(function(el) {
+    el.addEventListener('click', function() { goal('click_telegram'); });
+  });
+
+  // 4. Клик по WhatsApp
+  document.querySelectorAll('a[href*="wa.me"]').forEach(function(el) {
+    el.addEventListener('click', function() { goal('click_whatsapp'); });
+  });
+
+  // 5. Клик по email / копирование
+  document.querySelectorAll('a[href^="mailto:"], a[onclick*="copyEmail"]').forEach(function(el) {
+    el.addEventListener('click', function() { goal('click_email'); });
+  });
+
+  // 6. Выбор пакета
+  var origSelectPackage = window.selectPackage;
+  if (origSelectPackage) {
+    window.selectPackage = function(name, price, btn) {
+      origSelectPackage(name, price, btn);
+      goal('select_package');
+    };
+  }
+  var origSelectCoaching = window.selectCoachingPackage;
+  if (origSelectCoaching) {
+    window.selectCoachingPackage = function(e, btn) {
+      origSelectCoaching(e, btn);
+      goal('select_package');
+    };
+  }
+
+  // 7. Переход на чек-лист
+  document.querySelectorAll('a[href*="Checklist"]').forEach(function(el) {
+    el.addEventListener('click', function() { goal('click_checklist'); });
+  });
+
+  // 8. Доскролл до брифа (интерес к заявке)
+  var briefObs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) { if (e.isIntersecting) { goal('scroll_brief'); briefObs.disconnect(); } });
+  }, { threshold: 0.3 });
+  var briefSec = document.getElementById('brief');
+  if (briefSec) briefObs.observe(briefSec);
+})();
+</script>
 </body>
 </html>

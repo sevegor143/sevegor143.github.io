@@ -34,7 +34,7 @@
     .nav-links a.active { color: var(--accent); background: rgba(0,102,255,0.08); font-weight: 600; }
     .nav-cta { padding: 10px 20px; border-radius: 100px; background: linear-gradient(135deg, var(--accent) 0%, var(--green) 100%); color: #fff; font-size: 13px; font-weight: 600; text-decoration: none; border: none; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 16px rgba(0,102,255,0.25); }
     .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(0,102,255,0.35); }
-    .burger { display: none; background: none; border: none; cursor: pointer; color: var(--primary); padding: 8px; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; touch-action: manipulation; align-items: center; justify-content: center; width: 44px; height: 44px; }
+    .burger { display: none; font-size: 24px; background: none; border: none; cursor: pointer; color: var(--primary); padding: 8px; }
     .hero { padding: 140px 0 60px; position: relative; overflow: hidden; background: linear-gradient(180deg, #f0f7ff 0%, #e6f7f4 40%, #ffffff 100%); }
     .hero-blob { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.45; pointer-events: none; }
     .hero-blob-1 { width: 500px; height: 500px; background: radial-gradient(circle, var(--accent-light) 0%, transparent 70%); top: -100px; right: -100px; }
@@ -125,7 +125,7 @@
 @media (max-width: 900px) {
       .cases-grid { grid-template-columns: repeat(2, 1fr); }
       .nav-links { display: none; }
-      .burger { display: flex; }
+      .burger { display: block; }
     }
     @media (max-width: 600px) {
       .cases-grid { grid-template-columns: 1fr; }
@@ -145,6 +145,136 @@
       .contact-chips .contact-icon img { width: 28px; height: 28px; }
       .contact-chips .contact-icon svg { width: 20px; height: 20px; }}
   </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://ВАШ_ДОМЕН/#organization",
+      "name": "Колесо эффективности",
+      "url": "https://ВАШ_ДОМЕН/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://ВАШ_ДОМЕН/favicon.svg"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+7-993-108-11-05",
+        "contactType": "sales",
+        "areaServed": "RU",
+        "availableLanguage": ["Russian"]
+      },
+      "sameAs": [
+        "https://t.me/Kolesoeffect"
+      ]
+    },
+    {
+      "@type": "ItemList",
+      "@id": "https://ВАШ_ДОМЕН/cases.html#cases",
+      "name": "Кейсы по оптимизации бизнес-процессов",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "item": {
+            "@type": "Article",
+            "name": "Оптимизация производственного цикла",
+            "description": "Перестроили процесс плавки и проката. Внедрили систему учёта загрузки печей и нормирования труда. Результат: −28% простоев, +18% выпуска.",
+            "about": "Металлургия"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "item": {
+            "@type": "Article",
+            "name": "Изменение системы мотивации",
+            "description": "Улучшили систему мотивации персонала. Результат: 100% выполнение плана.",
+            "about": "Горнодобыча"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "item": {
+            "@type": "Article",
+            "name": "Аудит и оптимизация персонала",
+            "description": "Пересмотрели штатное расписание, устранили дублирование функций. Результат: −15% издержек на ФОТ, +40% эффективности.",
+            "about": "Цветные металлы"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "item": {
+            "@type": "Article",
+            "name": "Внедрение системы управления задачами",
+            "description": "Перевели производственный учёт с Excel на единую цифровую систему. Результат: −35% времени на отчётность, +25% скорости реакции.",
+            "about": "Производство"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
+          "item": {
+            "@type": "Article",
+            "name": "Оптимизация складской логистики",
+            "description": "Перестроили процессы приёмки, хранения и отгрузки. Результат: −22% времени обработки заказа, −30% ошибок комплектации.",
+            "about": "Логистика"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 6,
+          "item": {
+            "@type": "Article",
+            "name": "Расчёт оптимальной численности цеха",
+            "description": "Построили модель численности с учётом загрузки оборудования. Результат: −12% избыточного персонала, +8% производительности.",
+            "about": "Металлургия"
+          }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://ВАШ_ДОМЕН/cases.html#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Главная",
+          "item": "https://ВАШ_ДОМЕН/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Кейсы",
+          "item": "https://ВАШ_ДОМЕН/cases.html"
+        }
+      ]
+    }
+  ]
+}
+</script>
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript" >
+   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+   m[i].l=1*new Date();
+   for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+   k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+   ym(YA_COUNTER_ID, "init", {
+        clickmap:true,
+        trackLinks:true,
+        accurateTrackBounce:true,
+        webvisor:true,
+        ecommerce:"dataLayer"
+   });
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/YA_COUNTER_ID" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
 </head>
 <body>
   <nav class="nav">
@@ -160,7 +290,7 @@
         <a href="index.html#packages">Пакеты</a>
         <a href="index.html#contact">Контакты</a>
       </div>
-      <button class="burger" onclick="toggleMobileNav()" aria-label="Меню"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+      <button class="burger" onclick="toggleMobileNav()" aria-label="Меню">☰</button>
       <a href="index.html#brief" class="nav-cta" style="display:none;" id="desktopCta">Заполнить бриф</a>
     </div>
   </nav>
@@ -316,5 +446,67 @@
       <button class="privacy-close" onclick="document.getElementById('privacyModal').classList.remove('active')">Закрыть</button>
     </div>
   </div>
+
+<!-- Yandex Metrika Goals -->
+<script>
+(function() {
+  var cid = YA_COUNTER_ID; // ЗАМЕНИТЕ на номер вашего счётчика!
+  function goal(name) { if (window.ym) ym(cid, 'reachGoal', name); }
+
+  // 1. Отправка брифа
+  var briefForm = document.querySelector('.brief-form');
+  if (briefForm) {
+    briefForm.addEventListener('submit', function() { goal('submit_brief'); });
+  }
+
+  // 2. Клик по телефону
+  document.querySelectorAll('a[href^="tel:"]').forEach(function(el) {
+    el.addEventListener('click', function() { goal('click_phone'); });
+  });
+
+  // 3. Клик по Telegram
+  document.querySelectorAll('a[href*="t.me"]').forEach(function(el) {
+    el.addEventListener('click', function() { goal('click_telegram'); });
+  });
+
+  // 4. Клик по WhatsApp
+  document.querySelectorAll('a[href*="wa.me"]').forEach(function(el) {
+    el.addEventListener('click', function() { goal('click_whatsapp'); });
+  });
+
+  // 5. Клик по email / копирование
+  document.querySelectorAll('a[href^="mailto:"], a[onclick*="copyEmail"]').forEach(function(el) {
+    el.addEventListener('click', function() { goal('click_email'); });
+  });
+
+  // 6. Выбор пакета
+  var origSelectPackage = window.selectPackage;
+  if (origSelectPackage) {
+    window.selectPackage = function(name, price, btn) {
+      origSelectPackage(name, price, btn);
+      goal('select_package');
+    };
+  }
+  var origSelectCoaching = window.selectCoachingPackage;
+  if (origSelectCoaching) {
+    window.selectCoachingPackage = function(e, btn) {
+      origSelectCoaching(e, btn);
+      goal('select_package');
+    };
+  }
+
+  // 7. Переход на чек-лист
+  document.querySelectorAll('a[href*="Checklist"]').forEach(function(el) {
+    el.addEventListener('click', function() { goal('click_checklist'); });
+  });
+
+  // 8. Доскролл до брифа (интерес к заявке)
+  var briefObs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) { if (e.isIntersecting) { goal('scroll_brief'); briefObs.disconnect(); } });
+  }, { threshold: 0.3 });
+  var briefSec = document.getElementById('brief');
+  if (briefSec) briefObs.observe(briefSec);
+})();
+</script>
 </body>
 </html>
