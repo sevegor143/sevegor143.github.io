@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+Disallow: /admin.html
+Disallow: /send.php
+Crawl-delay: 1
+
+User-agent: Yandex
+Allow: /
+Disallow: /admin.html
+Disallow: /send.php
+Host: https://ВАШ_ДОМЕН
+
+Sitemap: https://ВАШ_ДОМЕН/sitemap.xml

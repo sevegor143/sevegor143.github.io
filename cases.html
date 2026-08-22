@@ -24,7 +24,7 @@
     .reveal-delay-2 { transition-delay: 0.2s; }
     .reveal-delay-3 { transition-delay: 0.3s; }
     @media (prefers-reduced-motion: reduce), (scripting: none) { .reveal { opacity: 1 !important; transform: none !important; } }
-    .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(255,255,255,0.85); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(227,232,238,0.6); }
+    .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(255,255,255,0.85); backdrop-filter: blur(16px);  }
     .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 68px; }
     .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--primary); font-weight: 700; font-size: 15px; letter-spacing: -0.01em; }
     .logo svg { color: var(--accent); }
@@ -35,7 +35,7 @@
     .nav-cta { padding: 10px 20px; border-radius: 100px; background: linear-gradient(135deg, var(--accent) 0%, var(--green) 100%); color: #fff; font-size: 13px; font-weight: 600; text-decoration: none; border: none; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 16px rgba(0,102,255,0.25); }
     .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(0,102,255,0.35); }
     .burger { display: none; font-size: 24px; background: none; border: none; cursor: pointer; color: var(--primary); padding: 8px; }
-    .hero { padding: 140px 0 60px; position: relative; overflow: hidden; background: linear-gradient(180deg, #f0f7ff 0%, #e6f7f4 40%, #ffffff 100%); }
+    .hero { padding: 140px 0 60px; position: relative; overflow: hidden; background: linear-gradient(180deg, #f0f7ff 0%, #e0f0ff 40%, #ffffff 100%); }
     .hero-blob { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.45; pointer-events: none; }
     .hero-blob-1 { width: 500px; height: 500px; background: radial-gradient(circle, var(--accent-light) 0%, transparent 70%); top: -100px; right: -100px; }
     .hero-blob-2 { width: 400px; height: 400px; background: radial-gradient(circle, var(--green-light) 0%, transparent 70%); bottom: -50px; left: -80px; opacity: 0.3; }
@@ -288,7 +288,7 @@
         <a href="index.html#process">Подход</a>
         <a href="cases.html" class="active">Кейсы</a>
         <a href="index.html#packages">Пакеты</a>
-        <a href="index.html#contact">Контакты</a>
+        <a href="contacts.html">Контакты</a>
       </div>
       <button class="burger" onclick="toggleMobileNav()" aria-label="Меню">☰</button>
       <a href="index.html#brief" class="nav-cta" style="display:none;" id="desktopCta">Заполнить бриф</a>
@@ -299,7 +299,7 @@
     <a href="index.html#process" onclick="toggleMobileNav()">Подход</a>
     <a href="cases.html">Кейсы</a>
     <a href="index.html#packages" onclick="toggleMobileNav()">Пакеты</a>
-    <a href="index.html#contact" onclick="toggleMobileNav()">Контакты</a>
+    <a href="contacts.html" onclick="toggleMobileNav()">Контакты</a>
     <a href="index.html#brief" onclick="toggleMobileNav()" style="margin-top:8px;text-align:center;display:block;padding:12px;border-radius:100px;background:linear-gradient(135deg,#0066ff,#00c9a7);color:#fff;text-decoration:none;font-weight:600;">Заполнить бриф</a>
   </div>
 
@@ -364,7 +364,7 @@
         <a href="cases.html">Кейсы</a>
         <a href="index.html#packages">Услуги</a>
         <a href="Checklist.html">Чек-лист</a>
-        <a href="index.html#contact">Контакты</a>
+        <a href="contacts.html">Контакты</a>
         <a href="#" onclick="document.getElementById('privacyModal').classList.add('active'); return false;">Политика конфиденциальности</a>
         <a href="admin.html" class="admin-link" title="Админ-панель">⚙</a>
       </div>
