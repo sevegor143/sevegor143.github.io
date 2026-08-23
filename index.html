@@ -229,7 +229,8 @@
     .contact-icon.max:hover { background: rgba(10,37,64,0.08); border-color: rgba(10,37,64,0.2); box-shadow: 0 8px 24px rgba(10,37,64,0.08); }
     .contact-icon:hover { transform: translateY(-3px); }
     .contact-icon img { width: 32px; height: 32px; object-fit: cover; border-radius: 50%; }
-@media (max-width: 900px) { .industries-grid { grid-template-columns: repeat(2, 1fr); } }
+.field-error { border-color: #ef9a9a !important; box-shadow: 0 0 0 3px rgba(239,154,154,0.15) !important; }
+    @media (max-width: 900px) { .industries-grid { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 600px) {
       .nav-inner { padding: 0 16px; gap: 8px; }
       .logo { font-size: 13px; gap: 6px; }
@@ -293,7 +294,8 @@
     .contact-icon.max:hover { background: rgba(10,37,64,0.08); border-color: rgba(10,37,64,0.2); box-shadow: 0 8px 24px rgba(10,37,64,0.08); }
     .contact-icon:hover { transform: translateY(-3px); }
     .contact-icon img { width: 32px; height: 32px; object-fit: cover; border-radius: 50%; }
-@media (max-width: 900px) {
+.field-error { border-color: #ef9a9a !important; box-shadow: 0 0 0 3px rgba(239,154,154,0.15) !important; }
+    @media (max-width: 900px) {
       .about-grid, .contact-grid, .brief-grid { grid-template-columns: 1fr; }
       .about-left, .about-right { width: 100%; }
       .spec-grid { grid-template-columns: repeat(3, 1fr); }
@@ -496,7 +498,8 @@
     .contact-icon.max:hover { background: rgba(10,37,64,0.08); border-color: rgba(10,37,64,0.2); box-shadow: 0 8px 24px rgba(10,37,64,0.08); }
     .contact-icon:hover { transform: translateY(-3px); }
     .contact-icon img { width: 32px; height: 32px; object-fit: cover; border-radius: 50%; }
-@media (max-width: 900px) {
+.field-error { border-color: #ef9a9a !important; box-shadow: 0 0 0 3px rgba(239,154,154,0.15) !important; }
+    @media (max-width: 900px) {
       .team-card { flex-direction: column; gap: 20px; align-items: center; text-align: center; }
       .team-avatars { justify-content: center; }
     }
@@ -639,14 +642,14 @@
             <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="14" height="14" rx="2"/><rect x="28" y="6" width="14" height="14" rx="2"/><rect x="6" y="28" width="14" height="14" rx="2"/><rect x="28" y="28" width="14" height="14" rx="2"/><path d="M13 20v8M20 13h8M28 20v8M20 35h8"/></svg>
           </div>
           <h3>Модели численности</h3>
-          <p>Подбираем драйвера для построения модели численности.</p>
+          <p>Рассчитываем оптимальное количество сотрудников по производственной потребности.</p>
         </div>
         <div class="spec-card reveal reveal-delay-2">
           <div class="spec-icon">
             <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M24 4v8"/><path d="M24 36v8"/><path d="M4 24h8"/><path d="M36 24h8"/><circle cx="24" cy="24" r="6"/><path d="M12 12l5.6 5.6"/><path d="M30.4 30.4L36 36"/><path d="M12 36l5.6-5.6"/><path d="M30.4 17.6L36 12"/></svg>
           </div>
           <h3>Реинжиниринг процессов</h3>
-          <p>Перестраиваем бизнес-процессы: убираем потери, внедряем автоматизацию.</p>
+          <p>Перестраиваем бизнес-процессы с нуля: убираем потери, внедряем автоматизацию.</p>
         </div>
       </div>
     </div>
@@ -671,7 +674,7 @@
           <div class="step-num">2</div>
           <div>
             <div class="step-title">Анализ</div>
-            <div class="step-desc">Сравниваем с лучшими практиками. Строим модель численности.</div>
+            <div class="step-desc">Сравниваем с лучшими практиками. Строим модель численности и нагрузки.</div>
           </div>
         </div>
         <div class="step">
@@ -715,17 +718,17 @@
       <div class="cases-grid">
         <div class="case-card reveal">
           <span class="case-tag metallurgy">Металлургия</span>
-          <h3>Пересмотр расстановки персонала</h3>
-          <p>Пересмотрели расстановку и загрузку персонала на печах, привели к лучшей практике.</p>
+          <h3>Оптимизация производственного цикла</h3>
+          <p>Перестроили процесс плавки и проката. Внедрили систему учёта загрузки печей и нормирования труда.</p>
           <div class="case-result">
-            <div><strong>−15%</strong>затрат на ФОТ</div>
-            <div><strong>+20%</strong>производительности труда</div>
+            <div><strong>−28%</strong>простоев оборудования</div>
+            <div><strong>+18%</strong>выпуск продукции</div>
           </div>
         </div>
         <div class="case-card reveal reveal-delay-1">
           <span class="case-tag mining">Горнодобыча</span>
           <h3>Изменение системы мотивации</h3>
-          <p>Изменели систему мотивации персонала, предприятие стало выполнять план</p>
+          <p>Улучшили систему мотивации персонала, предприятие стало выполнять план</p>
           <div class="case-result">
             <div><strong>100%</strong>выполнение плана</div>
           </div>
@@ -795,7 +798,7 @@
         </div>
         <div class="package-card reveal reveal-delay-2">
           <div class="package-name">Максимум</div>
-          <div class="package-desc">Комплексная трансформация</div>
+          <div class="package-desc">Комплексная трансформация управления</div>
           <div class="package-price">от 350 000 ₽</div>
           <ul>
             <li>Аудит всех бизнес-процессов</li>
@@ -809,7 +812,7 @@
       </div>
       <p style="text-align:center;margin-top:32px;font-size:15px;color:var(--text-secondary);">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:6px;color:var(--green);"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
-        В среднем клиент окупает вложения за 1–2 месяца после внедрения улучшений за счёт сокращения простоев и оптимизации ФОТ
+        В среднем клиент окупает вложения за 1–2 месяца за счёт сокращения простоев и оптимизации ФОТ
       </p>
     </div>
   </section>
@@ -870,10 +873,11 @@
               <input type="tel" name="phone" placeholder="+7 (999) 000-00-00" id="briefPhone">
             </div>
             <div class="form-group">
-              <label>Email</label>
+              <label>Email <span style="color:var(--accent)">*</span></label>
               <input type="email" name="email" placeholder="ivan@company.ru" id="briefEmail">
             </div>
           </div>
+          <p style="font-size:12px;color:var(--text-muted);margin-top:-8px;margin-bottom:16px;">Укажите телефон или email — мы свяжемся с вами удобным способом</p>
           <div class="brief-grid-2">
             <div class="form-group">
               <label>Компания <span style="color:var(--accent)">*</span></label>
@@ -1082,6 +1086,23 @@
 
     // Formspree — письма приходят на почту
 
+
+    // Валидация: телефон или email
+    document.querySelector('.brief-form').addEventListener('submit', function(e) {
+      var phone = document.getElementById('briefPhone').value.trim();
+      var email = document.getElementById('briefEmail').value.trim();
+      var phoneEl = document.getElementById('briefPhone');
+      var emailEl = document.getElementById('briefEmail');
+      phoneEl.classList.remove('field-error');
+      emailEl.classList.remove('field-error');
+      if (!phone && !email) {
+        e.preventDefault();
+        phoneEl.classList.add('field-error');
+        emailEl.classList.add('field-error');
+        showToast('Укажите телефон или email, чтобы мы могли с вами связаться');
+        return false;
+      }
+    });
 
     // Маска телефона
     document.querySelector('input[name="phone"]').addEventListener('input', function(e) {

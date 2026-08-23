@@ -131,6 +131,7 @@
       .contact-chip { box-shadow: none !important; border-color: #ccc !important; }
       .print-together { break-inside: avoid; page-break-inside: avoid; }
     }
+    .field-error { border-color: #ef9a9a !important; box-shadow: 0 0 0 3px rgba(239,154,154,0.15) !important; }
     @media (max-width: 600px) {
       .header { padding: 40px 0 30px; }
       .section-header { gap: 10px; }
@@ -300,9 +301,10 @@
             <input type="tel" name="phone" placeholder="+7 (999) 000-00-00" id="lmPhone">
           </div>
           <div class="lm-field">
-            <label>Email</label>
+            <label>Email <span style="color:var(--accent)">*</span></label>
             <input type="email" name="email" placeholder="ivan@company.ru" id="lmEmail">
           </div>
+          <p style="font-size:12px;color:var(--text-muted);margin-bottom:12px;text-align:center;">Укажите телефон или email — мы свяжемся с вами удобным способом</p>
           <button type="submit" class="lm-btn" id="lmBtn">Получить чек-лист</button>
         </form>
         <p class="lm-privacy">Нажимая кнопку, вы соглашаетесь с <a href="#" onclick="document.getElementById('privacyModal').classList.add('active'); return false;">политикой конфиденциальности</a></p>
@@ -630,6 +632,23 @@
     if (localStorage.getItem(LM_STORAGE_KEY) === '1') {
       document.getElementById('lmOverlay').classList.add('hidden');
     }
+    // Валидация: телефон или email
+    document.getElementById('lmForm').addEventListener('submit', function(e) {
+      var phone = document.getElementById('lmPhone').value.trim();
+      var email = document.getElementById('lmEmail').value.trim();
+      var phoneEl = document.getElementById('lmPhone');
+      var emailEl = document.getElementById('lmEmail');
+      phoneEl.classList.remove('field-error');
+      emailEl.classList.remove('field-error');
+      if (!phone && !email) {
+        e.preventDefault();
+        phoneEl.classList.add('field-error');
+        emailEl.classList.add('field-error');
+        showToast('Укажите телефон или email, чтобы мы могли с вами связаться');
+        return false;
+      }
+    });
+
     document.getElementById('lmPhone').addEventListener('input', function(e) {
       let v = e.target.value.replace(/\D/g, '');
       if (v.length > 0 && v[0] === '7') v = v.substring(1);

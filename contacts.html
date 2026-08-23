@@ -117,6 +117,7 @@
     .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px); background: linear-gradient(135deg, var(--primary) 0%, #1a3a5c 100%); color: #fff; padding: 12px 24px; border-radius: 100px; font-size: 14px; font-weight: 500; opacity: 0; transition: all 0.4s cubic-bezier(0.22,1,0.36,1); pointer-events: none; z-index: 200; box-shadow: 0 8px 32px rgba(10,37,64,0.25); }
     .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
+    .field-error { border-color: #ef9a9a !important; box-shadow: 0 0 0 3px rgba(239,154,154,0.15) !important; }
     @media (max-width: 900px) {
       .contacts-grid { grid-template-columns: 1fr; }
       .form-wrap { position: static; }
@@ -301,13 +302,14 @@
             <div class="form-row">
               <div class="form-group">
                 <label>Телефон <span style="color:var(--accent)">*</span></label>
-                <input type="tel" name="phone" placeholder="+7 (999) 000-00-00" id="contactPhone" required>
+                <input type="tel" name="phone" placeholder="+7 (999) 000-00-00" id="contactPhone">
               </div>
               <div class="form-group">
-                <label>Email</label>
+                <label>Email <span style="color:var(--accent)">*</span></label>
                 <input type="email" name="email" placeholder="ivan@company.ru">
-              </div>
             </div>
+          </div>
+          <p style="font-size:12px;color:var(--text-muted);margin-top:-8px;margin-bottom:16px;">Укажите телефон или email — мы свяжемся с вами удобным способом</p>
             <div class="form-group">
               <label>Чем можем помочь? <span style="color:var(--accent)">*</span></label>
               <textarea name="problems" placeholder="Опишите задачу: аудит, оптимизация процессов, расчёт численности..." required></textarea>
@@ -354,6 +356,23 @@
     document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
     function toggleMobileNav() { document.getElementById('mobileNav').classList.toggle('show'); }
+
+    // Валидация: телефон или email
+    document.querySelector('form[action="send.php"]').addEventListener('submit', function(e) {
+      var phone = document.getElementById('contactPhone').value.trim();
+      var email = this.querySelector('input[name="email"]').value.trim();
+      var phoneEl = document.getElementById('contactPhone');
+      var emailEl = this.querySelector('input[name="email"]');
+      phoneEl.classList.remove('field-error');
+      emailEl.classList.remove('field-error');
+      if (!phone && !email) {
+        e.preventDefault();
+        phoneEl.classList.add('field-error');
+        emailEl.classList.add('field-error');
+        showToast('Укажите телефон или email, чтобы мы могли с вами связаться');
+        return false;
+      }
+    });
 
     document.getElementById('contactPhone').addEventListener('input', function(e) {
       let v = e.target.value.replace(/\D/g, '');
