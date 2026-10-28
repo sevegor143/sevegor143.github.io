@@ -147,6 +147,17 @@
       .contact-chips .contact-icon { margin: 0 6px; width: 48px; height: 48px; }
       .contact-chips .contact-icon img { width: 28px; height: 28px; }
       .contact-chips .contact-icon svg { width: 20px; height: 20px; }}
+  
+    /* Согласие на обработку персональных данных */
+    .consent-row { display: flex; align-items: flex-start; gap: 10px; margin: 0 0 16px; cursor: pointer; user-select: none; }
+    .consent-row input[type="checkbox"] { appearance: none; -webkit-appearance: none; width: 20px; height: 20px; border: 2px solid var(--border); border-radius: 6px; position: relative; cursor: pointer; transition: all 0.2s; flex-shrink: 0; margin: 2px 0 0; padding: 0; background: #fff; }
+    .consent-row input[type="checkbox"]:checked { background: linear-gradient(135deg, var(--accent), var(--green)); border-color: transparent; }
+    .consent-row input[type="checkbox"]:checked::after { content: "\2713"; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #fff; font-size: 13px; font-weight: 700; line-height: 1; }
+    .consent-row > span { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
+    .consent-row > span a { color: var(--accent); text-decoration: none; font-weight: 600; }
+    .consent-row > span a:hover { text-decoration: underline; }
+    .consent-row.consent-error input[type="checkbox"] { border-color: #ff4757; box-shadow: 0 0 0 3px rgba(255,71,87,0.15); }
+    .consent-row.consent-error > span { color: #ff4757; }
   </style>
 <script type="application/ld+json">
 {
@@ -305,6 +316,10 @@
             <input type="email" name="email" placeholder="ivan@company.ru" id="lmEmail">
           </div>
           <p style="font-size:12px;color:var(--text-muted);margin-bottom:12px;text-align:center;">Укажите телефон или email — мы свяжемся с вами удобным способом</p>
+          <label class="consent-row" for="lmConsent">
+            <input type="checkbox" id="lmConsent" name="consent" value="yes">
+            <span>Я согласен на обработку <a href="#" onclick="document.getElementById('privacyModal').classList.add('active'); return false;">персональных данных</a> <span style="color:var(--accent)">*</span></span>
+          </label>
           <button type="submit" class="lm-btn" id="lmBtn">Получить чек-лист</button>
         </form>
         <p class="lm-privacy">Нажимая кнопку, вы соглашаетесь с <a href="#" onclick="document.getElementById('privacyModal').classList.add('active'); return false;">политикой конфиденциальности</a></p>
@@ -586,11 +601,12 @@
 
   <div class="privacy-modal" id="privacyModal" onclick="if(event.target===this)this.classList.remove('active')">
     <div class="privacy-box">
-      <h3>Политика конфиденциальности</h3>
-      <p>Мы собираем и обрабатываем персональные данные (имя, телефон, email, название компании) исключительно для подготовки коммерческого предложения и связи с вами.</p>
-      <p>Данные передаются по защищённому соединению и не передаются третьим лицам. Хранение осуществляется в течение 1 года с момента последнего контакта, после чего удаляются.</p>
-      <p>Вы вправе в любой момент запросить удаление ваших данных, направив запрос через указанные каналы связи.</p>
-      <button class="privacy-close" onclick="document.getElementById('privacyModal').classList.remove('active')">Закрыть</button>
+      <h3>Согласие на обработку персональных данных</h3>
+      <p>Заполняя форму на сайте, вы даёте согласие на обработку ваших персональных данных: фамилии, имени, отчества, номера телефона, адреса электронной почты, названия компании и должности — в соответствии с Федеральным законом от 27.07.2006 № 152-ФЗ «О персональных данных».</p>
+      <p>Персональные данные обрабатываются исключительно для подготовки коммерческого предложения, обратной связи по вашей заявке и информирования об услугах компании. Обработка осуществляется с использованием средств автоматизации на территории Российской Федерации.</p>
+      <p>Данные не передаются третьим лицам, за исключением случаев, предусмотренных законодательством РФ. Срок обработки — не более 1 года с момента последнего обращения, после чего данные подлежат удалению или обезличиванию.</p>
+      <p>Вы вправе в любой момент отозвать согласие, направив запрос на email koleso.effectivnosti@gmail.com или по телефону +7 (993) 108-11-05. Отзыв согласия прекращает обработку данных и влечёт их удаление.</p>
+      <button class="privacy-close"  onclick="document.getElementById('privacyModal').classList.remove('active')">Закрыть</button>
     </div>
   </div>
 
@@ -738,6 +754,24 @@
   var briefSec = document.getElementById('brief');
   if (briefSec) briefObs.observe(briefSec);
 })();
+</script>
+<script>
+  // Валидация согласия на обработку персональных данных
+  (function() {
+    var form = document.querySelector('lmForm');
+    var cb = document.getElementById('lmConsent');
+    if (!form || !cb) return;
+    form.addEventListener('submit', function(e) {
+      if (!cb.checked) {
+        e.preventDefault();
+        cb.closest('.consent-row').classList.add('consent-error');
+        var msg = 'Подтвердите согласие на обработку персональных данных';
+        if (typeof showToast === 'function') { showToast(msg); } else { alert(msg); }
+        return false;
+      }
+    });
+    cb.addEventListener('change', function() { cb.closest('.consent-row').classList.remove('consent-error'); });
+  })();
 </script>
 </body>
 </html>
