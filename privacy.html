@@ -7,12 +7,7 @@
   <meta name="description" content="Политика конфиденциальности и обработки персональных данных компании «Колесо эффективности» в соответствии с Федеральным законом № 152-ФЗ.">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚙️</text></svg>">
   <style>
-    :root {
-      --primary:#0a2540;--accent:#0066ff;--accent-light:#4d94ff;--green:#00c9a7;--green-light:#5ce1c6;
-      --text:#0a2540;--text-secondary:#425466;--text-muted:#8898aa;--bg:#ffffff;--bg-alt:#f6f9fc;
-      --border:#e3e8ee;--radius:16px;--radius-sm:10px;
-      --font:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-    }
+    :root{--primary:#0a2540;--accent:#0066ff;--accent-light:#4d94ff;--green:#00c9a7;--green-light:#5ce1c6;--text:#0a2540;--text-secondary:#425466;--text-muted:#8898aa;--bg:#ffffff;--bg-alt:#f6f9fc;--border:#e3e8ee;--radius:16px;--radius-sm:10px;--font:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     html{scroll-behavior:smooth;overflow-x:hidden}
     body{font-family:var(--font);color:var(--text);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
@@ -47,17 +42,10 @@
     .footer-links a{font-size:13px;color:var(--text-secondary);text-decoration:none;transition:color .2s}
     .footer-links a:hover{color:var(--accent)}
     @media (max-width:900px){.nav-links{display:none}}
-    @media (max-width:600px){
-      .hero{padding:100px 0 30px}
-      .content{padding:24px 0 60px}
-      .content h2{font-size:19px;margin-top:28px}
-      .footer-inner{flex-direction:column;text-align:center}
-      .footer-links{justify-content:center;gap:10px 16px}
-    }
+    @media (max-width:600px){.hero{padding:100px 0 30px}.content{padding:24px 0 60px}.content h2{font-size:19px;margin-top:28px}.footer-inner{flex-direction:column;text-align:center}.footer-links{justify-content:center;gap:10px 16px}}
   </style>
 </head>
 <body>
-
   <nav class="nav">
     <div class="container nav-inner">
       <a href="index.html" class="logo">
@@ -191,11 +179,11 @@
   </footer>
 
   <script>
-    function copyEmail(el) {
-      var email = 'koleso.effectivnosti@gmail.com';
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(email).then(function(){ alert('Почта скопирована: ' + email); }).catch(function(){ alert(email); });
-      } else { alert(email); }
+    function copyEmail(el){
+      var email='koleso.effectivnosti@gmail.com';
+      if(navigator.clipboard&&navigator.clipboard.writeText){
+        navigator.clipboard.writeText(email).then(function(){alert('Почта скопирована: '+email)}).catch(function(){alert(email)});
+      }else{alert(email)}
       return false;
     }
   </script>
