@@ -96,13 +96,34 @@
     .consent-row > span a:hover{text-decoration:underline}
     .consent-row.consent-error input[type="checkbox"]{border-color:#ff4757;box-shadow:0 0 0 3px rgba(255,71,87,0.15)}
     .consent-row.consent-error > span{color:#ff4757}
+    .privacy-modal{display:none;position:fixed;inset:0;z-index:600;background:rgba(10,37,64,0.55);backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:24px}
+    .privacy-modal.active{display:flex}
+    .privacy-box{max-width:680px;width:100%;max-height:85vh;display:flex;flex-direction:column;background:#fff;border-radius:var(--radius);border:1px solid var(--border);box-shadow:0 24px 80px rgba(10,37,64,0.3)}
+    .privacy-head{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 24px;border-bottom:1px solid var(--border);flex-shrink:0}
+    .privacy-head h3{font-size:18px;font-weight:800;color:var(--primary);margin:0;letter-spacing:-0.01em}
+    .privacy-close{width:36px;height:36px;border-radius:50%;border:none;background:rgba(10,37,64,0.06);color:var(--primary);font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;line-height:1;flex-shrink:0}
+    .privacy-close:hover{background:rgba(10,37,64,0.12)}
+    .privacy-body{padding:24px;overflow-y:auto;flex:1;scroll-behavior:smooth}
+    .privacy-body h4{font-size:15px;font-weight:700;margin:20px 0 8px;color:var(--primary)}
+    .privacy-body h4:first-child{margin-top:0}
+    .privacy-body p{font-size:14px;color:var(--text-secondary);line-height:1.7;margin-bottom:10px}
+    .privacy-body ul{padding-left:20px;margin-bottom:10px}
+    .privacy-body ul li{font-size:14px;color:var(--text-secondary);line-height:1.7;margin-bottom:4px}
+    .privacy-body a{color:var(--accent);text-decoration:none;font-weight:500}
+    .privacy-body a:hover{text-decoration:underline}
+    .privacy-body strong{color:var(--primary);font-weight:600}
+    .privacy-meta{display:inline-block;font-size:12px;color:var(--text-muted);margin-bottom:14px}
     @media (max-width:900px){.contacts-grid{grid-template-columns:1fr}.form-wrap{position:static}.nav-links{display:none}.burger{display:block}}
-    @media (max-width:600px){.hero{padding:120px 0 40px}.hero h1{font-size:28px}.form-row{grid-template-columns:1fr}.footer-inner{flex-direction:column;gap:16px;text-align:center}.footer-links{justify-content:center;gap:10px 16px}.messengers{justify-content:center}.contact-card{padding:20px}}
+    @media (max-width:600px){
+      .hero{padding:120px 0 40px}.hero h1{font-size:28px}.form-row{grid-template-columns:1fr}
+      .footer-inner{flex-direction:column;gap:16px;text-align:center}.footer-links{justify-content:center;gap:10px 16px}
+      .messengers{justify-content:center}.contact-card{padding:20px}
+      .privacy-box{max-height:90vh}.privacy-head{padding:16px 18px}.privacy-head h3{font-size:16px}.privacy-body{padding:18px}
+    }
   </style>
   <script type="application/ld+json">
   {"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://ВАШ_ДОМЕН/#organization","name":"Колесо эффективности","url":"https://ВАШ_ДОМЕН/","logo":{"@type":"ImageObject","url":"https://ВАШ_ДОМЕН/favicon.svg"},"contactPoint":{"@type":"ContactPoint","telephone":"+7-993-108-11-05","contactType":"sales","areaServed":"RU","availableLanguage":["Russian"]},"sameAs":["https://t.me/Kolesoeffect"]},{"@type":"ContactPage","@id":"https://ВАШ_ДОМЕН/contacts.html#contactpage","name":"Контакты — Колесо эффективности","description":"Свяжитесь с командой Колесо эффективности. Телефон, Telegram, WhatsApp, email.","url":"https://ВАШ_ДОМЕН/contacts.html","mainEntity":{"@type":"Organization","name":"Колесо эффективности","telephone":"+7 (993) 108-11-05","email":"koleso.effectivnosti@gmail.com","url":"https://ВАШ_ДОМЕН/"}},{"@type":"BreadcrumbList","@id":"https://ВАШ_ДОМЕН/contacts.html#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная","item":"https://ВАШ_ДОМЕН/"},{"@type":"ListItem","position":2,"name":"Контакты","item":"https://ВАШ_ДОМЕН/contacts.html"}]}]}
   </script>
-  <!-- Yandex.Metrika counter -->
   <script type="text/javascript">(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();for(var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r){return}}k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})(window,document,"script","https://mc.yandex.ru/metrika/tag.js","ym");ym(YA_COUNTER_ID,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor:true,ecommerce:"dataLayer"});</script>
   <noscript><div><img src="https://mc.yandex.ru/watch/YA_COUNTER_ID" style="position:absolute;left:-9999px;" alt="" /></div></noscript>
 </head>
@@ -225,7 +246,7 @@
             </div>
             <label class="consent-row" for="contactConsent">
               <input type="checkbox" id="contactConsent" name="consent" value="yes">
-              <span>Я согласен с <a href="privacy.html" target="_blank" rel="noopener">политикой конфиденциальности</a> <span style="color:var(--accent)">*</span></span>
+              <span>Я согласен с <a href="privacy.html" onclick="return openPrivacyModal(event)">политикой конфиденциальности</a> <span style="color:var(--accent)">*</span></span>
             </label>
             <button type="submit" class="submit-btn" id="contactSubmit">Отправить заявку</button>
           </form>
@@ -251,6 +272,102 @@
 
   <div class="toast" id="toast"></div>
 
+  <div class="privacy-modal" id="privacyModal" onclick="if(event.target===this)closePrivacyModal()">
+    <div class="privacy-box" role="dialog" aria-modal="true" aria-labelledby="privacyTitle">
+      <div class="privacy-head">
+        <h3 id="privacyTitle">Политика конфиденциальности</h3>
+        <button type="button" class="privacy-close" onclick="closePrivacyModal()" aria-label="Закрыть">×</button>
+      </div>
+      <div class="privacy-body">
+        <span class="privacy-meta">Дата последнего обновления: 2 ноября 2026 г.</span>
+        <p><strong>Оператор персональных данных:</strong> компания «Колесо эффективности».<br>
+        <strong>Контакты:</strong> email <a href="mailto:koleso.effectivnosti@gmail.com">koleso.effectivnosti@gmail.com</a>, телефон <a href="tel:+79931081105">+7 (993) 108-11-05</a>.</p>
+
+        <h4>1. Общие положения</h4>
+        <p>1.1. Настоящая Политика конфиденциальности (далее — Политика) определяет порядок обработки и защиты персональных данных пользователей сайта (далее — Сайт), принадлежащего Оператору.</p>
+        <p>1.2. Политика разработана в соответствии с Федеральным законом от 27.07.2006 № 152-ФЗ «О персональных данных» и иными нормативными правовыми актами Российской Федерации в области защиты персональных данных.</p>
+        <p>1.3. Использование Сайта означает безоговорочное согласие пользователя с настоящей Политикой и указанными в ней условиями обработки персональных данных.</p>
+        <p>1.4. В случае несогласия с условиями Политики пользователь должен прекратить использование Сайта.</p>
+
+        <h4>2. Основные понятия</h4>
+        <p><strong>Персональные данные</strong> — любая информация, относящаяся к прямо или косвенно определённому физическому лицу (субъекту персональных данных).</p>
+        <p><strong>Обработка персональных данных</strong> — любое действие (операция) или совокупность действий с персональными данными, включая сбор, запись, систематизацию, накопление, хранение, уточнение, использование, передачу, обезличивание, блокирование, удаление, уничтожение.</p>
+        <p><strong>Оператор</strong> — компания «Колесо эффективности», самостоятельно организующая обработку персональных данных и определяющая цели и состав обрабатываемых данных.</p>
+        <p><strong>Пользователь</strong> — лицо, использующее Сайт.</p>
+
+        <h4>3. Состав обрабатываемых персональных данных</h4>
+        <p>3.1. Оператор обрабатывает следующие категории персональных данных, добровольно предоставляемых пользователем через формы на Сайте:</p>
+        <ul>
+          <li>фамилия, имя (при указании — отчество);</li>
+          <li>номер телефона;</li>
+          <li>адрес электронной почты;</li>
+          <li>название компании, должность;</li>
+          <li>иная информация, которую пользователь указывает в свободных полях форм (описание задачи, комментарии).</li>
+        </ul>
+        <p>3.2. Автоматически собираемые технические данные (при использовании Сайта):</p>
+        <ul>
+          <li>IP-адрес;</li>
+          <li>данные о браузере и устройстве;</li>
+          <li>сведения о посещённых страницах и времени визита;</li>
+          <li>cookies-файлы.</li>
+        </ul>
+        <p>3.3. Оператор не обрабатывает специальные категории персональных данных (раса, национальность, политические взгляды, состояние здоровья и т. п.) и биометрические данные.</p>
+
+        <h4>4. Цели обработки персональных данных</h4>
+        <p>4.1. Оператор обрабатывает персональные данные в следующих целях:</p>
+        <ul>
+          <li>обратная связь с пользователем по оставленной заявке;</li>
+          <li>подготовка коммерческого предложения и консультаций;</li>
+          <li>информирование пользователя об услугах Оператора (при наличии отдельного согласия);</li>
+          <li>улучшение качества работы Сайта, анализ обезличенной статистики;</li>
+          <li>исполнение требований законодательства РФ.</li>
+        </ul>
+
+        <h4>5. Правовые основания обработки</h4>
+        <p>5.1. Обработка персональных данных осуществляется на основании:</p>
+        <ul>
+          <li>согласия субъекта персональных данных на обработку его персональных данных (п. 1 ч. 1 ст. 6 152-ФЗ);</li>
+          <li>исполнения договора, стороной которого является субъект персональных данных;</li>
+          <li>законных интересов Оператора в случаях, предусмотренных законодательством.</li>
+        </ul>
+
+        <h4>6. Порядок и условия обработки</h4>
+        <p>6.1. Обработка персональных данных осуществляется смешанным способом (с использованием средств автоматизации и без них).</p>
+        <p>6.2. Срок обработки персональных данных — до достижения целей обработки либо до отзыва согласия субъектом, но не более 1 года с момента последнего обращения пользователя. По истечении срока данные подлежат удалению или обезличиванию.</p>
+        <p>6.3. Персональные данные хранятся на серверах, расположенных на территории Российской Федерации.</p>
+        <p>6.4. Оператор не передаёт персональные данные третьим лицам, за исключением случаев, прямо предусмотренных законодательством РФ, а также сервисов аналитики (Яндекс.Метрика), обрабатывающих обезличенные данные.</p>
+
+        <h4>7. Меры по защите персональных данных</h4>
+        <p>7.1. Оператор принимает необходимые правовые, организационные и технические меры для защиты персональных данных от неправомерного доступа, уничтожения, изменения, блокирования, копирования, распространения:</p>
+        <ul>
+          <li>передача данных по защищённому протоколу HTTPS;</li>
+          <li>ограничение доступа к персональным данным сотрудников, не связанных с обработкой;</li>
+          <li>применение организационных и режимных мер;</li>
+          <li>регулярная проверка актуальности и точности данных.</li>
+        </ul>
+
+        <h4>8. Права субъекта персональных данных</h4>
+        <p>8.1. Пользователь имеет право:</p>
+        <ul>
+          <li>получать информацию об обработке своих персональных данных;</li>
+          <li>требовать уточнения, блокирования или уничтожения персональных данных, если они являются неполными, устаревшими, неточными или незаконно полученными;</li>
+          <li>отозвать согласие на обработку персональных данных в любой момент;</li>
+          <li>обратиться в уполномоченный орган по защите прав субъектов персональных данных (Роскомнадзор) или в суд.</li>
+        </ul>
+        <p>8.2. Для реализации своих прав пользователь может направить запрос на email <a href="mailto:koleso.effectivnosti@gmail.com">koleso.effectivnosti@gmail.com</a> или по телефону <a href="tel:+79931081105">+7 (993) 108-11-05</a>.</p>
+
+        <h4>9. Cookies и аналитика</h4>
+        <p>9.1. Сайт использует cookies для улучшения работы, анализа трафика и персонализации. Используется сервис веб-аналитики Яндекс.Метрика, который собирает обезличенные данные о посещениях.</p>
+        <p>9.2. Пользователь может отключить cookies в настройках своего браузера. При этом часть функциональности Сайта может стать недоступной.</p>
+
+        <h4>10. Заключительные положения</h4>
+        <p>10.1. Оператор вправе вносить изменения в настоящую Политику. Новая редакция вступает в силу с момента её публикации на Сайте.</p>
+        <p>10.2. Действующая редакция Политики всегда доступна на Сайте.</p>
+        <p>10.3. По всем вопросам, связанным с обработкой персональных данных, следует обращаться по контактам, указанным в разделе 1.</p>
+      </div>
+    </div>
+  </div>
+
   <script>
     const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
@@ -258,6 +375,20 @@
     document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
     function toggleMobileNav() { document.getElementById('mobileNav').classList.toggle('show'); }
+
+    function openPrivacyModal(e) {
+      if (e) e.preventDefault();
+      document.getElementById('privacyModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+      return false;
+    }
+    function closePrivacyModal() {
+      document.getElementById('privacyModal').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closePrivacyModal();
+    });
 
     document.querySelector('form[action="send.php"]').addEventListener('submit', function(e) {
       var phone = document.getElementById('contactPhone').value.trim();
