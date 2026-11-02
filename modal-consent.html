@@ -1,0 +1,24 @@
+<!-- Единое модальное окно для всех страниц -->
+<div class="privacy-modal" id="privacyModal" onclick="if(event.target===this)this.classList.remove('active')">
+    <div class="privacy-box">
+        <h3>Согласие на обработку персональных данных</h3>
+
+        <p>Мы используем cookie для улучшения работы сайта. Продолжая использовать сайт, вы соглашаетесь с нашей политикой конфиденциальности.</p>
+
+        <label class="checkbox-label" style="display: block;">
+            <input type="checkbox" id="modalConsent" name="consent" required>
+            <span style="margin-left: 8px; font-size: 13px;">
+                Я даю согласие на обработку персональных данных в соответствии с Федеральным законом № 152-ФЗ
+            </span>
+        </label>
+
+        <div style="margin-top: 15px; text-align: center;">
+            <button id="acceptBtn" style="background: #3c98dc; color: white; border: none; padding: 10px 20px; cursor: pointer; border-radius: 4px;">Я согласен</button>
+        </div>
+    </div>
+</div>
+
+<style>
+    .privacy-modal { 
+        position: fixed; top: 0; left: 0; right: 0; bottom: 0; 
+        background:
